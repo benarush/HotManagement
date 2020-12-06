@@ -1,0 +1,8 @@
+pip install Django
+pip install django-reset-migrations
+pip install djangorestframework
+pip install django-crispy-forms
+pip install cryptography
+pip install django-cryptographic-fields
+pip install pymysql
+pip install pillow

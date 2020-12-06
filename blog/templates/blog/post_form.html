@@ -1,0 +1,25 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-botton mb-4">Hit Us With A Post {{user.username}}!</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Post!</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Dont Know What To Write? <a class="ml-2" href="#FUNNY_WEBSITE">Get Help Here!</a>
+            </small>
+        </div>
+</div>
+<script>
+    document.getElementById('id_title').dir='auto'
+    document.getElementById('id_content').dir='auto'
+</script>
+{% endblock content %}

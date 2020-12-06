@@ -4,3 +4,6 @@ HotManagement/settings.py
 Lib/*
 Scripts/*
 pyvenv.cfg
+*.svg
+*.png
+*.jpeg

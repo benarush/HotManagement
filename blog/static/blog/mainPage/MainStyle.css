@@ -1,0 +1,252 @@
+﻿{% load static %}
+html {
+}
+body {
+    margin-top: 3rem;
+}
+html , body {
+    height:100%;
+    width: 100%;
+}
+
+.navbar {
+    padding: 1% 0 ;
+    font-size: 1.2em;
+}
+/*
+#home {
+    display: table;
+    height: 100%;
+    position:relative;
+    width:100%;
+    -webkit-background-size:cover;
+}
+
+.landing-text {
+    display: table-cell;
+    text-align:center;
+    vertical-align: middle;
+
+}
+*/
+.landing-text h1 {
+    font-size: 500%;
+    font-weight: 700;
+}
+
+.padding {
+    padding: 80px 0;
+}
+.padding img{
+    width: 100%;
+}
+
+/* #fixed {
+    display:table ;
+    height: 60%;
+    position: relative;
+    width:100%;
+    background-size:cover;
+} */
+footer {
+    width: 100%;
+    background-color: #23415C;
+    padding: 5% 5% 10% 5%;
+    color: #FFF;
+}
+
+footer h3 ,h4 {
+    color: #FFF;
+}
+
+.col-sm-4  svg {
+    padding: -4px;
+    font-size: 25px;
+    color:#FFF;
+    margin: 3px;
+}
+
+.col-sm-4 svg:hover {
+    color: #D5D5D5;
+    text-decoration: none;
+
+}
+
+.icon {
+    max-width: 300px;
+}
+
+@media (max-width: 768px){
+    .landing-text h1 {
+        font-size: 300%;
+    }
+
+    .fa {
+        font-size: 20px;
+        padding: 10px;
+    }
+    .icon {
+        padding-top : 5%;
+        max-width: 150px;
+    }
+}
+
+section {
+ 	position: relative;
+ 	width: 100%;
+ 	height: 100%;
+ 	display: table;
+}
+.home-wrap {
+ 	clip: rect(0, auto, auto, 0);
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	width: 100%;
+ 	height: 100%;
+}
+#home {
+ 	position: fixed;
+ 	display: table;
+ 	top: 0;
+ 	left: 0;
+ 	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	-webkit-transform: translateZ(0);
+          transform: translateZ(0);
+	will-change: transform;
+	z-index: -1;
+}
+.landing-text {
+	z-index: 100;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	padding-bottom: 10rem;
+}
+
+figure {
+	position: relative;
+	width: 100%;
+	height: 60%;
+}
+.fixed-wrap {
+	clip: rect(0, auto, auto, 0);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+#fixed {
+	background-image: url('img/background.jpg');
+	position: fixed;
+	display: block;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	-webkit-transform: translateZ(0);
+          transform: translateZ(0);
+	will-change: transform;
+}
+
+
+.CustomList {
+  list-style: none;
+  counter-reset: steps;
+  text-align:Left;
+  font-size:1.25em;
+}
+.CustomList li {
+  counter-increment: steps;
+}
+.CustomList li::before {
+  content: counter(steps);
+  margin-right: 0.5rem;
+  background: #28a7e9;
+  color: white;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  line-height: 1.2em;
+}
+.CustomList ol li::before {
+  background: darkorchid;
+}
+
+
+/* iOS Landing Page Fix
+section {
+ 	position: relative;
+ 	width: 100%;
+ 	height: 100%;
+ 	display: table;
+}
+.home-wrap {
+ 	clip: rect(0, auto, auto, 0);
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	width: 100%;
+ 	height: 100%;
+}
+#home {
+	background-image: url('img/mountains.jpeg');
+ 	position: fixed;
+ 	display: table;
+ 	top: 0;
+ 	left: 0;
+ 	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	-webkit-transform: translateZ(0);
+          transform: translateZ(0);
+	will-change: transform;
+	z-index: -1;
+}
+.landing-text {
+	z-index: 100;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+--*/
+
+/*--- iOS Fixed Image Fix
+figure {
+	position: relative;
+	width: 100%;
+	height: 60%;
+}
+.fixed-wrap {
+	clip: rect(0, auto, auto, 0);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+#fixed {
+	background-image: url('img/background.jpg');
+	position: fixed;
+	display: block;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	-webkit-transform: translateZ(0);
+          transform: translateZ(0);
+	will-change: transform;
+}
+--*/
+

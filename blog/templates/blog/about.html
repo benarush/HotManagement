@@ -1,0 +1,92 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/about.css' %}" >
+    <h1 style="text-align:center;">Tomer Ben Harush</h1>
+
+<ul class="list-unstyled">
+  <li class="media">
+    <img class="mr-3 ProfileIMG" src="{% static 'blog/AboutImages/Tomer4.jpg' %}" alt="Generic placeholder image" style="cursor: pointer;" onclick="window.location = '#img13'">
+      <a href="#" class="lightbox elastic-animate" id="img13">
+         <img src="{% static 'blog/AboutImages/Tomer4.jpg' %}">
+         <span>Waaaasuuuuppp :)</span>
+      </a>
+    <div class="media-body">
+      <h5 class="mt-0 mb-1">About Me</h5>
+      Hello ,
+        My name is tomer and Im a Software Developer .<br>
+        The purpose of this site is to build and create your own ideas!<br>
+        tell me what you need , and how do you want it , and i will make it happen ! <br>for example : <br>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-terminal-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354L4.793 6.5 3.146 4.854a.5.5 0 1 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708z"/>
+        </svg> Wedding SMS and Convenient interface for visitors.<br>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-terminal-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354L4.793 6.5 3.146 4.854a.5.5 0 1 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708z"/>
+        </svg> Smart House developer based arduino and raspbery pi.<br>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-terminal-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354L4.793 6.5 3.146 4.854a.5.5 0 1 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708z"/>
+        </svg> and open for every cool idea. !
+    </div>
+  </li>
+</ul>
+</div>
+
+<div id="carouselExampleCaptions" class="carousel slide mb-3 ml-3 T_CarouselCustom mt-3" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1" ></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="5"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'blog/AboutImages/ArmyFreindsNavy.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 style="color: aliceblue;">Army Freinds</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'blog/AboutImages/lihi_tomer.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>The Love Of My Life</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'blog/AboutImages/FromArmy.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>My freinds from the Army!</h5>
+        <p style="text-align:center;">with our best teacher</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'blog/AboutImages/family.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>My Family!</h5>
+          <p style="text-align:center;">All of my family in one pic! look at my little brother Elay!!</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'blog/AboutImages/TomerDive.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>My second love of my life</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'blog/AboutImages/Freinds.jpg' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>My freinds from school!</h5>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+{% endblock content %}

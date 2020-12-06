@@ -1,0 +1,12 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <h2>Good Bye My Love...</h2>
+    <div class="border-top pt-3">
+            <small class="text-muted">
+                 <a href="{% url 'login' %}">Let me in again! (Login)</a>
+            </small>
+    </div>
+</div>
+{% endblock content %}

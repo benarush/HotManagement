@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- Font Awsome JS all script -->
+    <script defer src="{% static 'blog/FontAwasome/fontawesome-free-5.14.0-web/js/all.js' %}"></script>
+    <script defer src="{% static 'blog/mainPage/MainJS.js' %}"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'blog/bootstrap4_5/css/bootstrap.min.css' %}" >
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/mainPage/MainStyle.css' %}">
+
+
+</head>
+    <body>
+     <header class="site-header">
+       <nav class="navbar navbar-expand-sm navbar-dark bg-steel fixed-top" style="background:#28a7e9" >
+         <div class="container-fluid">
+           <!--<a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Coffe Soft -Blog</a> -->
+             <a class="navbar-brand mr-4" href="{% url 'blog-home' %}"><img src="{% static 'blog/logo/logo.png' %}" height="28"></a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarToggle">
+             <div class="navbar-nav mr-auto">
+                 <a class="nav-item nav-link" href="{% url 'blog-about' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-heading" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                      <path fill-rule="evenodd" d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                      <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
+                    </svg> About
+                 </a>
+             </div>
+            <!-- Navbar Right Side -->
+             <div class="navbar-nav">
+               {% if user.is_authenticated %}
+                 <a class="nav-item nav-link" href="{% url 'post-create' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+                     </svg> Create Post
+                 </a>
+                 <a class="nav-item nav-link" href="{% url 'event-home' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar2-event" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm-2 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-1zM11.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
+                     </svg>
+                     Event-App
+                 </a>
+                 <a class="nav-item nav-link" href="{% url 'blog-home' %}">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+                          <path fill-rule="evenodd" d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8zm0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        Blog
+                 </a>
+                 <a class="nav-item nav-link" href="{% url 'profile' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M2 3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3zm6 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 11.825 10.623 11 8 11s-4.146.826-5 1.755V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
+                     </svg> Profile
+                 </a>
+                 <a class="nav-item nav-link" href="{% url 'logout' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+                       <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+                       <path fill-rule="evenodd" d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z"/>
+                     </svg> Logout
+                 </a>
+               {% else %}
+                 <a class="nav-item nav-link" href="{% url 'event-home' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar2-event" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm-2 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-1zM11.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
+                     </svg>
+                     Event-App
+                 </a>
+                 <a class="nav-item nav-link" href="{% url 'login' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-in-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M8.146 11.354a.5.5 0 0 1 0-.708L10.793 8 8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+                       <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 1 8z"/>
+                       <path fill-rule="evenodd" d="M13.5 14.5A1.5 1.5 0 0 0 15 13V3a1.5 1.5 0 0 0-1.5-1.5h-8A1.5 1.5 0 0 0 4 3v1.5a.5.5 0 0 0 1 0V3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 5 13v-1.5a.5.5 0 0 0-1 0V13a1.5 1.5 0 0 0 1.5 1.5h8z"/>
+                    </svg> Login
+                 </a>
+                 <a class="nav-item nav-link" href="{% url 'register' %}">
+                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
+                       <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
+                       <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                     </svg> Register
+                 </a>
+               {% endif %}
+             </div>
+           </div>
+         </div>
+       </nav>
+    </header>
+     <section>
+	<div class="landing-text" style="
+	z-index: 100;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;">
+		<h1>Coffe-Soft</h1>
+		<h3>Little Coffe & Software <br>Alot of benfits</h3>
+	</div>
+	<div class="home-wrap">
+        <div id="home" style="background-image: url({% static 'blog\mainPage\img\mountains.jpeg' %});">
+		</div>
+    </div>
+</section>
+    <div class="padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="{% static 'blog\mainPage\img\FinalLogo2.png' %}">
+                </div>
+                <div class="col-sm-6 text-center">
+                    <h2> All about Coffe-Soft...</h2>
+                    <p class="lead">Coffe Soft is a site of needs ,Site that Solves vital problems in daily life , A perfect fix and its And he continues to be smarter and smarter .<br>
+                    Works in the form of a boutique, and is flexible according to the customer's needs .<br>
+                        Today Coffe Soft make solution for Providing:
+
+
+                    <ol class="CustomList">
+                        <li>Smart services for businesses.</li>
+                        <li>Smart event interface for guest management</li>
+                        <li>Easy and smart guest management for weddings</li>
+                        <li>Building projects for engineering students in the field <br> of software/computers/electronics</li>
+                        <li>Smart Houses using Arduino and raspberry pi</li>
+                    </ol>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <h4 style="color:#444444;">Build with Python</h4>
+                    <p class="lead">Big Fan of python, all this site Build in Django Frameworks , in my studing of this framework i desided to start a private project , and here today my private project is global website Coffe-Soft !  </p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <img src="{% static 'blog\mainPage\img\PythonLogo.png' %}" class="img-fluid">
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <h4 style="color:#444444;">In the Future</h4>
+                    <p class="lead">These days I am learning about the field of mobile applications , So be prepared for cool developments in this area as well</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <img src="{% static 'blog\mainPage\img\Android.png' %}" class="img-fluid">
+                </div>
+            </div>
+        </div>
+     </div>
+     <figure>
+	<div class="fixed-wrap">
+        <div id="fixed" style="background-image: url({% static 'blog\mainPage\img\background.jpg' %});">
+     </div>
+		</div>
+    </div>
+    </figure>
+
+
+    <div class="padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 style="color:#444444;">Here is the cool thing about Coffe-Soft...</h4>
+                    <p><b>in the image you can see Coffe Soft Vision :</b>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-primary"><u>Low Cost</u> - Every business can consume technological services from us and enjoy the best services at the cheapest prices in the Israeli market. </li>
+                    <li class="list-group-item list-group-item-info"><u>Personal Support</u> - We believe in human and personal connection, flexible according to the customer's wishes and able to change in his favor,You can contact us by phone or make an appointment.</li>
+                    <li class="list-group-item list-group-item-success"><u>Limitless Capabilities</u> - Coffe Soft provide Software that able to accomplish anything in any field, able to reach anywhere in the world, and carry out what is desired in the best way. </li>
+                    </ul>
+                    </p>
+                </div>
+                <div class="col-sm-6">
+                    <img src="{% static 'blog\mainPage\img\WhyUs.png' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <footer class="container-fluid text-center">
+         <div class="row">
+             <div class="col-sm-4">
+                <h3>Contact Me</h3><br>
+                 <h4>Our address and contact info here.</h4>
+             </div>
+             <div class="col-sm-4">
+                 <h3>Connect</h3>
+                 <a class="fab fa-facebook" onclick="location.replace('https://www.facebook.com/TomerSucreBenHarush')"></a>
+                 <a class="fab fa-google" onclick="location.replace('mailto:benharushtomer@gmail.com')"></a>
+                 <a class="fab fa-linkedin" onclick="location.replace('https://www.linkedin.com/in/tomer-ben-harush-58382b164/')"></a>
+                 <a href="#YouTube" class="fab fa-youtube"></a>
+                 <a class="fab fa-instagram" onclick="location.replace('https://www.instagram.com/tomerbenharush/')"></a>
+             </div>
+             <div class="col-sm-4">
+                <img src="{% static 'blog\logo\whiteLogo.png' %}" class="icon">
+             </div>
+         </div>
+
+     </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="{% static 'blog/bootstrap4_5/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
