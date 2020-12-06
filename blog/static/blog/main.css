@@ -93,6 +93,12 @@ p {
   font-size: 2.5rem;
 }
 
+.navbar {
+    padding: 1% 0 ;
+    font-size: 1.2em;
+}
+
+
 .slideUp {
   position: relative;
   animation: articleCool 0.7s normal;
