@@ -6,3 +6,4 @@ pip install cryptography
 pip install django-cryptographic-fields
 pip install pymysql
 pip install pillow
+pip install django-fake-model

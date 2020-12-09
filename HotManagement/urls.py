@@ -18,9 +18,9 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="users/password_reset_done.html" , extra_context={'latest_post':Post.objects.last()}),name="password_reset_done"),
     path('profile' , users_views.profile , name = "profile"),
     path('blog/', include('blog.urls')),
+    path('tasks/', include('Tasks.urls')),
     path('', mainPage, name='Main'),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-#ayelet.amar@hot.net.il
