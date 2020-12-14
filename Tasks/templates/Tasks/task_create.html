@@ -5,11 +5,11 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-botton mb-4">Update Your Task {{user.username}}</legend>
+                <legend class="border-botton mb-4">Create Your Task {{user.username}} !</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-primary" type="submit">Update!</button>
+                <button class="btn btn-primary" type="submit">Create!</button>
             </div>
         </form>
         <div class="border-top pt-3">

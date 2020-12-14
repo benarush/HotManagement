@@ -11,7 +11,7 @@ from .views import (
     )
 
 urlpatterns = [
-    path('', PostsListHome.as_view() ,name='blog-home'),
+    path('', PostsListHome.as_view(), name='blog-home'),
     path('user/<str:username>/', UserPostsListHome.as_view() ,name='user-posts'),
 #   Here the int:pk its variable that django goin to grab from the url , we call it pk because its what DetailsView
 #   expect to catch to get the specific item of post . if we call it other name , we will need to specified that to catch.

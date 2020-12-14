@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models.functions import datetime
 
 # Create your models here.
 
@@ -10,11 +11,11 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Task(models.Model):
     problem = models.CharField(max_length=40)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    weeks = models.SmallIntegerField(null=False, blank=False ,validators=[MaxValueValidator(100), MinValueValidator(1)])
+    weeks = models.SmallIntegerField(null=False, blank=False, validators=[MaxValueValidator(100), MinValueValidator(1)])
     description = models.CharField(max_length=40)
     date_created = models.DateTimeField(default=timezone.now)
     email_attached_file = models.FileField(upload_to="Emails_Files_Tasks", blank=True)
-    start_date = models.DateTimeField(blank=False)
+    start_date = models.DateTimeField(blank=False, default= datetime.datetime.now)
 
     def __str__(self):
         return f"<My Tasks obj -> tasks_name = {self.problem}>"

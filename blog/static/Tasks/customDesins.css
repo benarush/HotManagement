@@ -3,6 +3,8 @@
 }
 
 .title-tasks{
+    margin-button:2.84rem!important;
+
 		  font-size: 4rem;
 	    text-align: center;
 	    color: #052939;
@@ -16,3 +18,10 @@
                   45px 45px 0px white;
 }
 
+#create-tast-btn-cus {
+    margin-bottom: 5px;
+}
+
+#table-title{
+    margin-bottom:2.84rem!important;
+}

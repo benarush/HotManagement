@@ -30,6 +30,7 @@ class AllTasksViews(LoginRequiredMixin, ListView):
 class TaskCreateView(LoginRequiredMixin,CreateView):
     model = Task
 #   The Field Variable Tell CreateView Class witch field that we want to update on the creation
+    template_name = "Tasks/task_create.html"
     fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
 
     def get_context_data(self, **kwargs):
