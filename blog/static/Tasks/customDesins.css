@@ -21,6 +21,9 @@
 #create-tast-btn-cus {
     margin-bottom: 5px;
 }
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
 
 #table-title{
     margin-bottom:2.84rem!important;

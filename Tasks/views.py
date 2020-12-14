@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Task, TaskDetail
 from django.contrib.auth.models import User
+from django.contrib.messages.views import  SuccessMessageMixin
 
 from django.views.generic import (
     ListView ,
@@ -27,7 +28,7 @@ class AllTasksViews(LoginRequiredMixin, ListView):
         return Task.objects.all().filter(author = self.request.user)
 
 
-class TaskCreateView(LoginRequiredMixin,CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
 #   The Field Variable Tell CreateView Class witch field that we want to update on the creation
     template_name = "Tasks/task_create.html"
