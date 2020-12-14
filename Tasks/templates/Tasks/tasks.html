@@ -4,22 +4,32 @@
 <link rel="stylesheet" type="text/css" href="{% static 'Tasks\DataTable\datatables.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'Tasks\customDesins.css' %}" />
 <div class="container mb-3 mt-3" style="text-align:center;">
-        <table class="table table-striped mydatatable mr-3" style="width:100%;">
+    <div class='title-tasks mb-2'>All My Tasks</div>
+        <table class="table table-striped mydatatable mr-3 mt-4" style="width:100%;">
             <thead class="thead-dark">
                 <tr>
                     <th>Problem</th>
                     <th>Description</th>
                     <th>Start Date</th>
                     <th>Weeks</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
             {% for task in tasks %}
             <tr>
+
                     <td>{{task.problem}}</td>
                     <td>{{task.description}}</td>
                     <td>{{task.fullName}}</td>
                     <td>{{task.weeks }}</td>
+                    <td><a href="{% url 'edit-task' task.id %}">
+                        <img src="{% static 'Tasks\table_images\edit.png' %}"></a>
+                    </td>
+                    <td><a href="{% url 'delete-task' task.id %}">
+                        <img src="{% static 'Tasks\table_images\delete.png' %}"></a>
+                    </td>
             </tr>
             {% endfor %}
             <tfoot>

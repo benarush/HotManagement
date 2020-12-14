@@ -15,4 +15,4 @@ class Post(models.Model):
 #   this method define witch url to go after createView post creation
     def get_absolute_url(self):
 #   reverse function return a url string with self.pk variable for the urls.py , and the url.py set the <int:pk>
-        return reverse('post-details' , kwargs= {'pk': self.pk} )
+        return reverse('post-details' , kwargs={'pk': self.pk})

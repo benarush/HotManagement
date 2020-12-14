@@ -1,0 +1,20 @@
+{% extends "Tasks/base.html" %}
+{% block content %}
+
+    <article class="media content-section">
+      <img src="{{ object.author.profile.image.url }}" class="rounded-circle article-img">
+      <div class="media-body">
+        <div class="article-metadata">
+              <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
+          <small class="text-muted">Task Date Created {{ object.date_created }}</small>
+        </div>
+          <br class="article-title" >Problem - </br>{{ object.problem }}</h2>
+          <p dir="auto" class="article-content">{{ object.content }}</p>
+          {% if object.author == user %}
+            <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4" href="{% url 'edit-task' object.pk %}">Edit Task</a>
+            <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'delete-task' object.pk %}">Delete Task</a>
+          {% endif %}
+       </div>
+    </article>
+
+{% endblock content %}

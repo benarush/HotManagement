@@ -21,7 +21,7 @@
     <body>
      <header class="site-header">
        <nav class="navbar navbar-expand-sm navbar-dark bg-steel fixed-top" style="background:#FF2800 ; height:8vh" >
-         <div class="container">
+         <div class="container-fluid">
            <!--<a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Coffe Soft -Blog</a> -->
              <a class="navbar-brand mr-4" href="{% url 'blog-home' %}"><img src="{% static 'blog/logo/logo.png' %}" style="height:7vh;width: 8vh;"></a>
            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
                        <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
                      </svg> Create Post
                  </a>
-                 <a class="nav-item nav-link" href="#">
+                 <a class="nav-item nav-link" href="{% url 'all-tasks' %}">
                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar2-event" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm-2 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-1zM11.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
                      </svg>
@@ -70,7 +70,7 @@
                      </svg> Logout
                  </a>
                {% else %}
-                 <a class="nav-item nav-link" href="#">
+                 <a class="nav-item nav-link" href="{% url 'all-tasks' %}">
                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calendar2-event" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zm-2 3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-1zM11.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
                      </svg>
@@ -106,69 +106,9 @@
                     </div>
                     {% endfor %}
                 {% endif %}
-              {% block content %}{% endblock %}
-            </div>
-            <div class="col-md-4">
-              <div class="content-section">
-                <h3>Our Sidebar</h3>
-                <p class='text-muted'>SideBar Menu.
-                  <div class="list-group">
-                    {% if latest_post %}
-                        <a href="{% url 'post-details' latest_post.id %}" class="list-group-item list-group-item-action list-group-item-primary">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-left-text-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
-                        </svg> Latest Post!
-                    {% endif %}
-                    </a>
-                    <a href="#" data-toggle="modal" data-target="#ContactPop" class="list-group-item list-group-item-action list-group-item-info">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-badge-fill text-primary" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
-                        </svg> Contact Me!
-                    </a>
-                  </div>
-              </p>
-              </div>
             </div>
           </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="ContactPop" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Contact Me</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h2>Living in Even Yehuda</h2>
-                        <div class="iframeDiv">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26989.098263706943!2d34.86396771436023!3d32.26784008005289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d3f73dd4c85e7%3A0x2ec1cc5f360d156!2sEven%20Yehuda!5e0!3m2!1sen!2sil!4v1595706510971!5m2!1sen!2sil" width="100%" height="30%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-                        </div>
-                        <h6>
-                            <a href="tel:0504457772">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-telephone-outbound-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M2.267.98a1.636 1.636 0 0 1 2.448.152l1.681 2.162c.309.396.418.913.296 1.4l-.513 2.053a.636.636 0 0 0 .167.604L8.65 9.654a.636.636 0 0 0 .604.167l2.052-.513a1.636 1.636 0 0 1 1.401.296l2.162 1.681c.777.604.849 1.753.153 2.448l-.97.97c-.693.693-1.73.998-2.697.658a17.471 17.471 0 0 1-6.571-4.144A17.47 17.47 0 0 1 .639 4.646c-.34-.967-.035-2.004.658-2.698l.97-.969zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5z"/>
-                                </svg>
-                            Call Me
-                            </a>
-                        </h6>
-                        <h6>
-                            <a href="mailto:benharushtomer@gmail.com">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"/>
-                                </svg>
-                                Send My an Email
-                            </a>
-                        </h6>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% block content %}{% endblock %}
     </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

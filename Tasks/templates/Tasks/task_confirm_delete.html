@@ -1,0 +1,23 @@
+{% extends "Tasks/base.html" %}
+{% block content %}
+<div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Post</legend>
+                <h2>{{user.username}}, To Delete {{task.problem}}? Are You Sure??</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Erase {{post.title}}!</button>
+                <a class="btn btn-outline-secondary" href="{% url 'task-details' task.pk %}">Cancel Now!</a>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Dont Know What To Write? <a class="ml-2" href="#FUNNY_WEBSITE">Get Help Here!</a>
+            </small>
+        </div>
+</div>
+{% endblock content %}
+
+{{user.username}}, To Delete {{post.title}}? Are You Sure??
