@@ -4,7 +4,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'Tasks\DataTable\datatables.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'Tasks\customDesins.css' %}" />
 <div class="mt-2" style="text-align:center;">
-    <div class='title-tasks' id="table-title">All My Tasks</div>
+    <div class='title-tasks' id="table-title">
+        <div>
+        <img src="{{ request.user.profile.image.url }}" class="mb-4 rounded-circle article-img">All My Tasks</div>
+        </div>
     <a href="{% url 'create-task' %}">
         <button type="button" class="btn btn-dark btn-lg btn-block " id="create-tast-btn-cus" >
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="mr-2 bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
