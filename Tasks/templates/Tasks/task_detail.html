@@ -1,32 +1,95 @@
 {% extends "Tasks/base.html" %}
+{% load static %}
 {% block content %}
-
     <article class="media content-section">
       <img src="{{ object.author.profile.image.url }}" class="rounded-circle article-img">
       <div class="media-body">
                   <div class="row">
-          <div class="col-4 mb-4">
+          <div class="col-3 mb-4">
             <div class="list-group" id="list-tab" role="tablist">
               <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Problem</a>
               <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">start Date</a>
               <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Description</a>
               <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Weeks</a>
+              <a class="list-group-item list-group-item-action" id="list-details-list" data-toggle="list" href="#list-details" role="tab" aria-controls="details">Task Details</a>
+
             </div>
           </div>
-          <div class="col-8">
+          <div class="col-9">
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">{{object.problem}}</div>
               <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">{{object.start_date}}</div>
               <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">{{object.description}}</div>
               <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">{{object.weeks}}</div>
+              <div class="tab-pane fade" id="list-details" role="tabpanel" aria-labelledby="list-details-list">
+                <table class="table">
+                  <caption>List of task details</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Problem</th>
+                      <th scope="col">Mission</th>
+                      <th scope="col">Responsibility</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     {% for td in task_details %}
+
+                    <tr>
+                      <th scope="row">{{td.problem}}</th>
+                      <td>{{td.mission}}</td>
+                      <td>{{td.responsibility}}</td>
+                      <td>{{td.status}}</td>
+                      <td>{{td.email}}</td>
+                      <td>
+                          <a href="{% url 'edit-task' td.id %}">
+                        <img src="{% static 'Tasks\table_images\edit.png' %}"></a>
+                          <a class="ml-1" href="{% url 'delete-task' td.id %}">
+                        <img src="{% static 'Tasks\table_images\delete.png' %}"></a></td>
+
+                    </tr>
+                     {% endfor %}
+
+                  </tbody>
+                </table>
+
+              </div>
+
             </div>
           </div>
         </div>
           {% if object.author == user %}
+            <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4" href="{% url 'create-task-details' object.pk %}">Create Task Details</a>
             <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4" href="{% url 'edit-task' object.pk %}">Edit Task</a>
+            <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4" href="{% url 'edit-task' object.pk %}">Export CSV</a>
             <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'delete-task' object.pk %}">Delete Task</a>
           {% endif %}
        </div>
     </article>
 
+<script>
+    // the li(<a> tag) element of the problem li and his data div, by defult its selected first.
+    const problem_li = document.getElementById('list-home-list');
+    const problem_div = document.getElementById('list-home');
+
+    // the li(<a> tag) element and his data div
+    const td_li = document.getElementById('list-details-list');
+    const td_div = document.getElementById('list-details');
+
+    const getParams = window.location.search;
+    if (getParams.includes("task_details")){
+        problem_li.classList.remove("active");
+        problem_li.setAttribute('aria-selected', false);
+        problem_div.classList.remove("show");
+        problem_div.classList.remove("active");
+
+        td_li.classList.add("active")
+        td_li.setAttribute('aria-selected', true);
+        td_div.classList.add("show");
+        td_div.classList.add("active");
+    }
+
+</script>
 {% endblock content %}

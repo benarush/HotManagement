@@ -57,7 +57,9 @@
 
 
 <script>
-    $('.mydatatable').DataTable({
+    $('.mydatatable').DataTable(
+    {
+    responsive: true,
         footerCallback: function (row, data, start, end, display) {
             var api = this.api(), data;
 
@@ -76,6 +78,7 @@
 
             $( api.column(3).footer()).html(total);
         }
+
     });
 
 </script>
