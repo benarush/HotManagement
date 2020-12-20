@@ -22,39 +22,44 @@
               <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">{{object.description}}</div>
               <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">{{object.weeks}}</div>
               <div class="tab-pane fade" id="list-details" role="tabpanel" aria-labelledby="list-details-list">
-                <table class="table">
-                  <caption>List of task details</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Problem</th>
-                      <th scope="col">Mission</th>
-                      <th scope="col">Responsibility</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                     {% for td in task_details %}
-
-                    <tr>
-                      <th scope="row">{{td.problem}}</th>
-                      <td>{{td.mission}}</td>
-                      <td>{{td.responsibility}}</td>
-                      <td>{{td.status}}</td>
-                      <td>{{td.email}}</td>
-                      <td>
-                          <a href="{% url 'edit-task' td.id %}">
-                        <img src="{% static 'Tasks\table_images\edit.png' %}"></a>
-                          <a class="ml-1" href="{% url 'delete-task' td.id %}">
-                        <img src="{% static 'Tasks\table_images\delete.png' %}"></a></td>
-
-                    </tr>
-                     {% endfor %}
-
-                  </tbody>
-                </table>
-
+                  <div class="table">
+                  <table class="table">
+                    <caption>List of task details</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Problem</th>
+                        <th scope="col">Mission</th>
+                        <th scope="col">Responsibility</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                       {% for td in task_details %}
+                      {% if td.status == True %}
+                      <tr  id="{{ td.id }}" class="alert-danger">
+                       {% else %}
+                      <tr class="alert-success">
+                      {% endif %}
+                        <td class="editable" data-id="{{ td.id }}" data-type="problem">{{td.problem}}</td>
+                        <td class="editable" data-id="{{ td.id }}" data-type="mission">{{td.mission}}</td>
+                        <td class="editable" data-id="{{ td.id }}" data-type="responsibility">{{td.responsibility}}</td>
+                       {% if td.status == True %}
+                            <td class="editable" data-id="{{ td.id }}" data-type="status">Open</td>
+                       {% else %}
+                          <td class="editable" data-id="{{ td.id }}" data-type="status">Closed</td>
+                       {% endif %}
+                        <td class="editable" data-id="{{ td.id }}" data-type="email">{{td.email}}</td>
+                        <td data-id="{{ td.id }}">
+                            <a data-id="{{ td.id }}" class="delete-btn ml-1" href="#">
+                          <img data-id="{{ td.id }}" src="{% static 'Tasks\table_images\delete.png' %}"></a></td>
+                      </tr>
+                       {% endfor %}
+                    </tbody>
+                  </table>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+                 </div>
               </div>
 
             </div>
@@ -68,6 +73,61 @@
           {% endif %}
        </div>
     </article>
+
+    <!-- Modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New Sub Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" list="Emails" class="form-control" id="inputEmail4" placeholder="Email" />
+        <datalist id="Emails">
+          <option>Volvo</option>
+          <option>Saab</option>
+          <option>Mercedes</option>
+          <option>Audi</option>
+        </datalist>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="responsibility">Responsibility</label>
+      <input type="text" class="form-control" id="responsibility" placeholder="responsability">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="Mission">Mission</label>
+    <input type="text" class="form-control" id="Mission" placeholder="what need to do?">
+  </div>
+  <div class="form-group">
+    <label for="Problem">Problem</label>
+    <input type="text" class="form-control" id="Problem" placeholder="What is the problem?">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="status">Status</label>
+    <select name="cars" id="status" class="form-control">
+      <option value="open">Open</option>
+      <option value="closed">Closed</option>
+    </select>
+    </div>
+   </div>
+    </form>
+      <div class="modal-footer">
+        <button data-task="{{ object.id }}" id="createSubTask" type="button" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
 <script>
     // the li(<a> tag) element of the problem li and his data div, by defult its selected first.
@@ -90,6 +150,82 @@
         td_div.classList.add("show");
         td_div.classList.add("active");
     }
-
 </script>
+<script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
+
+<script>
+     var editUrl = "{% url 'sub-task-edit' %}";
+     var deleteUrl = "{% url 'sub-task-delete' %}";
+     var CreateUrl = "{% url 'sub-task-create' %}";
+<!--        $(document).ready(function(){-->
+<!--            $(document).on("dblclick",".editable",function(){-->
+<!--                var value=$(this).text();-->
+<!--                var data_type=$(this).data("type");-->
+<!--                var input_type="text";-->
+<!--                if(data_type=="created_at")-->
+<!--                {-->
+<!--                    input_type="datetime-local";-->
+<!--                }-->
+<!--                if(data_type=="email")-->
+<!--                {-->
+<!--                    input_type="email";-->
+<!--                }-->
+<!--                console.log("type:" + data_type);-->
+<!--                if(data_type!="status")-->
+<!--                {-->
+<!--                    var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";-->
+<!--                }-->
+<!--                else-->
+<!--                {-->
+<!--                    var input= `<select id="cars" name="cars" class='input-data' data-type="status">-->
+<!--                        <option value="open">Open</option>-->
+<!--                        <option value="closed">Closed</option>-->
+<!--                      </select>`;-->
+<!--                }-->
+<!--                $(this).html(input);-->
+<!--                $(this).removeClass("editable")-->
+<!--            });-->
+
+<!--            $(document).on("blur",".input-data",function(){-->
+<!--                var value=$(this).val();-->
+<!--                var data_type=$(this).data("type");-->
+<!--                console.log(data_type);-->
+<!--                var td=$(this).parent("td");-->
+<!--                $(this).remove();-->
+<!--                td.html(value);-->
+<!--                td.addClass("editable");-->
+<!--                var type=td.data("type");-->
+<!--                sendToServer(td.data("id"),value,type);-->
+<!--            });-->
+<!--            $(document).on("keypress",".input-data",function(e){-->
+<!--                var key=e.which;-->
+<!--                if(key==13){-->
+<!--                    var value=$(this).val();-->
+<!--                    var td=$(this).parent("td");-->
+<!--                    $(this).remove();-->
+<!--                    td.html(value);-->
+<!--                    td.addClass("editable");-->
+<!--                   var type=td.data("type");-->
+<!--                   sendToServer(td.data("id"),value,type);-->
+<!--                }-->
+<!--            });-->
+
+<!--            function sendToServer(id,value,type){-->
+<!--                console.log(id);-->
+<!--                console.log(value);-->
+<!--                console.log(type);-->
+<!--                $.ajax({-->
+<!--                    url:"{% url 'sub-task-edit' %}",-->
+<!--                    type:"POST",-->
+<!--                    data:{id:id,type:type,value:value},-->
+<!--                })-->
+<!--                .done(function(response){-->
+<!--                    console.log(response);-->
+<!--                })-->
+<!--                .fail(function(){-->
+<!--                   alert("failed to load the data at the server , mybe value too big to field in db ... call tomer");-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+ </script>
 {% endblock content %}

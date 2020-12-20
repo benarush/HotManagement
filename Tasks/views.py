@@ -119,35 +119,6 @@ class TaskDetailsCreateView(LoginRequiredMixin, CreateView):
         form.instance.task = self.request.GET
         return super().form_valid(form)
 
-@login_required
-@api_view(['GET'])
-def apiOverview(request):
-    api_urls = {
-        'Get specific task info': '/tasks/alltasks/api/task_info/<str:pk>',
-        'Get all sub tasks for a specific task': '/tasks/alltasks/api/sub_tasks/<str>',
-    }
-    return Response(api_urls)
-
-@login_required
-@api_view(['GET'])
-def task_info(request,pk):
-    try:
-        task = Task.objects.get(id=pk)
-    except:
-        context = {"status": "failed" ,"error": "no such of task", "data": None, "subtasks": None}
-        return Response(context)
-    if request.user != task.author:
-        return Response({"status": "failed" ,"error": "permission denied", "data": None, "subtasks": None})
-    task_serializer = TaskSerializer(task, many=False)
-    sub_task = SubTaskSerializer(task.taskdetail_set.all(),many=True)
-    context = {
-        "status": "Success",
-        "error": None,
-        "data": {"task": task_serializer.data},
-        "subtasks": sub_task.data
-    }
-    return Response(context)
-
 
 def home(request):
     context = {'title': 'About Me!',
