@@ -68,6 +68,8 @@ def sub_task_edit(request):
         sub_task.email = value
     if type == "mission":
         sub_task.mission = value
+    if type == "responsibility":
+        sub_task.responsibility = value
     if type == "status":
         sub_task.status = True if value == "open" else False
 
@@ -91,9 +93,18 @@ def sub_task_create(request):
     email = request.POST.get('email', '')
     problem = request.POST.get('problem', '')
     mission = request.POST.get('mission', '')
+    responsibility = request.POST.get('responsibility', '')
     status = True if request.POST.get('status', '') == "open" else False
     print(f"task:{task}\nemail:{email}\nproblem:{problem}\nmission:{mission}\nstatus:{status}")
-
-
-
+    try:
+        TaskDetail.objects.create(
+            email=email,
+            problem=problem,
+            mission=mission,
+            status=status,
+            task=task,
+            responsibility=responsibility,
+        )
+    except Exception as e:
+        return JsonResponse({"message": e}, status=500)
     return JsonResponse({"success": "sub task created !!"})

@@ -43,7 +43,7 @@ $(document).ready(function(){
                 if(key==13){
                     var value=$(this).val();
                     var td=$(this).parent("td");
-                    $(this).remove();
+                  //  $(this).remove();
                     td.html(value);
                     td.addClass("editable");
                    var type=td.data("type");
