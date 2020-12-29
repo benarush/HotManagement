@@ -97,14 +97,11 @@ def sub_task_create(request):
     status = True if request.POST.get('status', '') == "open" else False
     print(f"task:{task}\nemail:{email}\nproblem:{problem}\nmission:{mission}\nstatus:{status}")
     try:
-        TaskDetail.objects.create(
-            email=email,
-            problem=problem,
-            mission=mission,
-            status=status,
-            task=task,
-            responsibility=responsibility,
-        )
+        sub_task_serializer = SubTaskSerializer(data=request.POST)
+        if sub_task_serializer.is_valid(raise_exception=True):
+            t = sub_task_serializer.save(task=task, status=status)
+            return JsonResponse(sub_task_serializer.data)
     except Exception as e:
-        return JsonResponse({"message": e}, status=500)
+        print({"message": e})
+        return JsonResponse(e.detail,status=500)
     return JsonResponse({"success": "sub task created !!"})

@@ -15,7 +15,7 @@
                      </svg>Create New Task!
         </button>
     </a>
-        <table class="table table-striped mydatatable mr-3 mt-4" style="width:100%;">
+        <table class="table table-striped mydatatable mr-3 mt-4 table-hover table-bordered" style="width:100%;">
             <thead class="thead-dark">
                 <tr>
                     <th>Problem</th>
@@ -30,10 +30,10 @@
             {% for task in tasks %}
             <tr>
 
-                    <td>{{task.problem}}</td>
-                    <td>{{task.description}}</td>
-                    <td>{{task.start_date}}</td>
-                    <td>{{task.weeks }}</td>
+                    <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.problem}}</td>
+                    <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.description}}</td>
+                    <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.start_date}}</td>
+                    <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.weeks }}</td>
                     <td><a href="{% url 'edit-task' task.id %}">
                         <img src="{% static 'Tasks\table_images\edit.png' %}"></a>
                     </td>
@@ -80,6 +80,11 @@
         }
 
     });
+
+    $(".hover-custom").click(function() {
+        window.location = $(this).data("url");
+    });
+
 
 </script>
 {% endblock content %}

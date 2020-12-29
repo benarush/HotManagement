@@ -47,7 +47,7 @@
                       {% if td.status == True %}
                       <tr  id="{{ td.id }}" class="alert-danger">
                        {% else %}
-                      <tr class="alert-success">
+                      <tr id="{{ td.id }}" class="alert-success">
                       {% endif %}
                         <td class="editable" data-id="{{ td.id }}" data-type="problem">{{td.problem}}</td>
                         <td class="editable" data-id="{{ td.id }}" data-type="mission">{{td.mission}}</td>
@@ -80,7 +80,7 @@
     </article>
 
     <!-- Modal -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="formModel" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -159,78 +159,10 @@
 <script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
 
 <script>
+     var csrf = '{{ csrf_token }}';
+     var deleteIMG_url = '\{% static 'Tasks\table_images\delete.png' %}';
      var editUrl = "{% url 'sub-task-edit' %}";
      var deleteUrl = "{% url 'sub-task-delete' %}";
      var CreateUrl = "{% url 'sub-task-create' %}";
-<!--        $(document).ready(function(){-->
-<!--            $(document).on("dblclick",".editable",function(){-->
-<!--                var value=$(this).text();-->
-<!--                var data_type=$(this).data("type");-->
-<!--                var input_type="text";-->
-<!--                if(data_type=="created_at")-->
-<!--                {-->
-<!--                    input_type="datetime-local";-->
-<!--                }-->
-<!--                if(data_type=="email")-->
-<!--                {-->
-<!--                    input_type="email";-->
-<!--                }-->
-<!--                console.log("type:" + data_type);-->
-<!--                if(data_type!="status")-->
-<!--                {-->
-<!--                    var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";-->
-<!--                }-->
-<!--                else-->
-<!--                {-->
-<!--                    var input= `<select id="cars" name="cars" class='input-data' data-type="status">-->
-<!--                        <option value="open">Open</option>-->
-<!--                        <option value="closed">Closed</option>-->
-<!--                      </select>`;-->
-<!--                }-->
-<!--                $(this).html(input);-->
-<!--                $(this).removeClass("editable")-->
-<!--            });-->
-
-<!--            $(document).on("blur",".input-data",function(){-->
-<!--                var value=$(this).val();-->
-<!--                var data_type=$(this).data("type");-->
-<!--                console.log(data_type);-->
-<!--                var td=$(this).parent("td");-->
-<!--                $(this).remove();-->
-<!--                td.html(value);-->
-<!--                td.addClass("editable");-->
-<!--                var type=td.data("type");-->
-<!--                sendToServer(td.data("id"),value,type);-->
-<!--            });-->
-<!--            $(document).on("keypress",".input-data",function(e){-->
-<!--                var key=e.which;-->
-<!--                if(key==13){-->
-<!--                    var value=$(this).val();-->
-<!--                    var td=$(this).parent("td");-->
-<!--                    $(this).remove();-->
-<!--                    td.html(value);-->
-<!--                    td.addClass("editable");-->
-<!--                   var type=td.data("type");-->
-<!--                   sendToServer(td.data("id"),value,type);-->
-<!--                }-->
-<!--            });-->
-
-<!--            function sendToServer(id,value,type){-->
-<!--                console.log(id);-->
-<!--                console.log(value);-->
-<!--                console.log(type);-->
-<!--                $.ajax({-->
-<!--                    url:"{% url 'sub-task-edit' %}",-->
-<!--                    type:"POST",-->
-<!--                    data:{id:id,type:type,value:value},-->
-<!--                })-->
-<!--                .done(function(response){-->
-<!--                    console.log(response);-->
-<!--                })-->
-<!--                .fail(function(){-->
-<!--                   alert("failed to load the data at the server , mybe value too big to field in db ... call tomer");-->
-<!--                });-->
-<!--            }-->
-<!--        });-->
  </script>
 {% endblock content %}

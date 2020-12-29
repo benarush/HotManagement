@@ -68,7 +68,7 @@ $(document).ready(function(){
                 });
             }
 
-            $(".delete-btn").click(function() {
+            $(document).on('click', '.delete-btn', function(){
                 console.log(this);
                 let td=$(this).parent("td");
                 console.log(td);
@@ -99,8 +99,9 @@ $(document).ready(function(){
                 });
             }
             });
-
-
+             $(document).on("dblclick",'#createSubTask',function(){
+                console.log("cancel");
+             });
             $('#createSubTask').click(function() {
                 console.log(this);
                 let task_id = $(this).data('task');
@@ -109,12 +110,6 @@ $(document).ready(function(){
                 let mission = document.getElementById("Mission").value;
                 let status = document.getElementById("status").value;
                 let responsibility = document.getElementById("responsibility").value;
-                console.log("taskid="+task_id);
-                console.log("email="+email);
-                console.log("problem="+problem);
-                console.log("mission="+mission);
-                console.log("status="+status);
-                console.log("responsibility="+responsibility);
                 let dict_data ={
                     task_id : task_id,
                     email : email,
@@ -124,6 +119,7 @@ $(document).ready(function(){
                     responsibility: responsibility,
                 };
                 let serverResponse = sendCreateToServer(dict_data);
+                console.log(serverResponse);
             })
 
             function sendCreateToServer(post_dict_data){
@@ -135,10 +131,28 @@ $(document).ready(function(){
                 })
                 .done(function(response){
                     console.log(response);
+                    $('#formModel').modal('hide');
+                    td_danger_success = response.current_status == "Close" ? "alert-success": "alert-danger";
+                    $(".table").find('tbody').append(`
+                    <tr id="` +response.id+ `" class="` + td_danger_success + `">
+                    <td class="editable" data-id="`+response.id+`" data-type="problem">` + response.problem +`</td>
+                    <td class="editable" data-id="`+response.id+`" data-type="mission">` + response.mission +`</td>
+                    <td class="editable" data-id="`+response.id+`" data-type="responsibility">` + response.responsibility +`</td>
+                    <td class="editable" data-id="`+response.id+`" data-type="status">` + response.current_status +`</td>
+                    <td class="editable" data-id="`+response.id+`" data-type="email">` + response.email +`</td>
+                    <td data-id="`+response.id+`"><a data-id="`+response.id+ `" class="delete-btn ml-1" href="#">
+                    <img data-id="` +response.id+`" src="`+ deleteIMG_url + `"></a></td></tr>`);
+
+
+
+
                     return response;
                 })
                 .fail(function(response){
-                   alert("failed to load the data at the server , mybe value too big to field in db ... call tomer");
+                   emailExp = response.responseJSON.hasOwnProperty('email') ? response.responseJSON.email[0] : "OK";
+                   problem = response.responseJSON.hasOwnProperty('problem') ? response.responseJSON.problem[0] : "OK";
+                   mission = response.responseJSON.hasOwnProperty('mission') ? response.responseJSON.problem[0] : "OK";
+                   alert("email -" + emailExp + "\n" +"problem -" + problem + "\n" +"mission -" + mission);
                    return response;
                 });
             }
