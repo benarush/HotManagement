@@ -159,6 +159,7 @@
 <script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
 
 <script>
+//  Here is properties for apiHandle.js script that handle the table
      var csrf = '{{ csrf_token }}';
      var deleteIMG_url = '\{% static 'Tasks\table_images\delete.png' %}';
      var editUrl = "{% url 'sub-task-edit' %}";
