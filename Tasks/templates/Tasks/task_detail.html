@@ -1,6 +1,10 @@
 {% extends "Tasks/base.html" %}
 {% load static %}
 {% block content %}
+<script type="text/javascript" src="{% static 'chartsLibrary\dist\Chart.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'chartsLibrary\dist\Chart.css' %}" >
+
     <article class="media content-section">
       <img src="{{ object.author.profile.image.url }}" class="rounded-circle article-img">
       <div class="media-body">
@@ -16,7 +20,41 @@
           <div class="col-10">
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-                  Graph
+              <div style="width:50%;height:50%">
+                <canvas id="myChart" width="250" height="250"></canvas>
+              </div>
+<script>
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Red', 'Green'],
+        responsive: true,
+        datasets: [{
+            label: '# of Votes',
+            data: [0,0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',//
+                'rgba(75, 192, 192, 0.2)',
+
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(75, 192, 192, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
               </div>
               <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
                   <h2>Problem - {{object.problem}}</h2><br>
@@ -135,30 +173,6 @@
 </div>
 
 <script>
-    // the li(<a> tag) element of the problem li and his data div, by defult its selected first.
-    const problem_li = document.getElementById('list-home-list');
-    const problem_div = document.getElementById('list-home');
-
-    // the li(<a> tag) element and his data div
-    const td_li = document.getElementById('list-details-list');
-    const td_div = document.getElementById('list-details');
-
-    const getParams = window.location.search;
-    if (getParams.includes("task_details")){
-        problem_li.classList.remove("active");
-        problem_li.setAttribute('aria-selected', false);
-        problem_div.classList.remove("show");
-        problem_div.classList.remove("active");
-
-        td_li.classList.add("active")
-        td_li.setAttribute('aria-selected', true);
-        td_div.classList.add("show");
-        td_div.classList.add("active");
-    }
-</script>
-<script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
-
-<script>
 //  Here is properties for apiHandle.js script that handle the table
      var csrf = '{{ csrf_token }}';
      var deleteIMG_url = '\{% static 'Tasks\table_images\delete.png' %}';
@@ -166,4 +180,7 @@
      var deleteUrl = "{% url 'sub-task-delete' %}";
      var CreateUrl = "{% url 'sub-task-create' %}";
  </script>
+
+<script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
+
 {% endblock content %}

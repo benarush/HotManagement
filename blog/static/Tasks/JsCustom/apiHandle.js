@@ -158,7 +158,7 @@ $(document).ready(function(){
             <td class="editable" data-id="`+response.id+`" data-type="email">` + response.email +`</td>
             <td data-id="`+response.id+`"><a data-id="`+response.id+ `" class="delete-btn ml-1" href="#">
             <img data-id="` +response.id+`" src="`+ deleteIMG_url + `"></a></td></tr>`);
-
+            update_Graphs(response.current_status === "Open" ? true: false)
             return response;
         })
         .fail(function(response){
@@ -170,4 +170,16 @@ $(document).ready(function(){
         });
     }
 
+    function update_Graphs(isOpen){
+        if (isOpen)
+        {
+            myChart.data.datasets[0].data[0]= myChart.data.datasets[0].data[0] + 1;
+            myChart.update()
+        }
+        else
+        {
+            myChart.data.datasets[0].data[1] = myChart.data.datasets[0].data[1] + 1;
+            myChart.update()
+        }
+    }
 });
