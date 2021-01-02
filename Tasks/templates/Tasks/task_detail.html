@@ -20,21 +20,28 @@
           <div class="col-10">
             <div class="tab-content" id="nav-tabContent">
               <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-              <div style="width:50%;height:50%">
-                <canvas id="myChart" width="250" height="250"></canvas>
-              </div>
+                <div class="container mb-3">
+                  <div class="row">
+                    <div class="col">
+                 <canvas id="myChartPie" class="mb-2" width="200" height="200" ></canvas>
+                    </div>
+                    <div class="col">
+                      <canvas id="myChartbar" width="200" height="200"></canvas>
+                    </div>
+                  </div>
+                </div>
 <script>
-var ctx = document.getElementById('myChart');
+var ctx = document.getElementById('myChartPie');
 var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['Red', 'Green'],
+        labels: ['Open', 'Closed'],
         responsive: true,
         datasets: [{
-            label: '# of Votes',
-            data: [0,0],
+            label: 'Task Details Status',
+            data: [4,8],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',//
+                'rgba(255, 99, 132, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
 
             ],
@@ -53,6 +60,37 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+// Bar chart
+new Chart(document.getElementById("myChartbar"), {
+    type: 'bar',
+    data: {
+      labels: ["Closed", "Open"],
+      datasets: [
+        {
+          label: "Number of sub tasks",
+          backgroundColor: ["#3cba9f","#c45850"],
+          data: [2,4]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Sub Tasks Status'
+      },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
 </script>
 
               </div>
