@@ -29,7 +29,7 @@ class AllTasksViews(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
     #      the get_object_or_404 return 404 if the user dont exist , and if he exist it return his user object
-        return Task.objects.all().filter(author = self.request.user)
+        return Task.objects.filter(author = self.request.user)
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -51,6 +51,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
     fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
+
     def get_context_data(self, **kwargs):
         context = super(TaskUpdateView, self).get_context_data(**kwargs)  # get the default context data
         return context

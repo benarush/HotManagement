@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
 from .models import Task, TaskDetail
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import *
+
 
 @login_required
 @api_view(['GET'])
@@ -16,6 +16,7 @@ def apiOverview(request):
         'Get all sub tasks for a specific task': '/tasks/alltasks/api/sub_tasks/<str>',
     }
     return Response(api_urls)
+
 
 @login_required
 @api_view(['GET'])
@@ -37,14 +38,14 @@ def task_info(request,pk):
     }
     return Response(context)
 
+
 @login_required
 @api_view(['GET'])
 def sub_tasks_data(request,task_pk):
     try:
         task = Task.objects.get(id=task_pk)
     except:
-        context = {"status": "failed" ,"error": "no such of task", "data": None, "subtasks": None}
-        return Response(context)
+        return Response({"status": "failed" ,"error": "no such of task", "data": None, "subtasks": None})
     if request.user != task.author:
         return Response({"status": "failed" ,"error": "permission denied", "data": None, "subtasks": None})
     sub_task = SubTaskSerializer(task.taskdetail_set.all(), many=True)
@@ -54,6 +55,7 @@ def sub_tasks_data(request,task_pk):
         "data": sub_task.data,
     }
     return Response(context)
+
 
 @login_required
 @csrf_exempt
@@ -86,7 +88,6 @@ def sub_task_delete(request):
 @login_required
 @csrf_exempt
 def sub_task_create(request):
-
     task = Task.objects.get(id=request.POST.get('task_id', ''))
     if task.author != request.user:
         return JsonResponse({"message": "Permission Denied!"}, status=500)
