@@ -62,7 +62,8 @@ $(document).ready(function(){
             var type=td.data("type");
             if(lastEditValue != value)
             {
-                sendEditToServer(td.data("id"),value,type);
+//               no need to send to server on enter , because its already sending after the class changing
+//                sendEditToServer(td.data("id"),value,type);
             }
         }
     });
@@ -77,6 +78,13 @@ $(document).ready(function(){
             data:{id:id,type:type,value:value},
         })
         .done(function(response){
+            if (type === "status" ){
+                let isOpen = value ==="closed";
+                delete_update_graphs(isOpen);
+                add_update_graphs(!isOpen);
+                document.getElementById(id).className = value === "closed" ? "alert-success" : "alert-danger";
+            }
+
             console.log(response);
         })
         .fail(function(){
