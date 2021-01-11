@@ -1,15 +1,6 @@
-from django.shortcuts import render
 from django.shortcuts import render , redirect , get_object_or_404
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from .models import Task, TaskDetail
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from .serializers import *
-
 from django.contrib.auth.models import User
-from django.contrib.messages.views import  SuccessMessageMixin
-
 from django.views.generic import (
     ListView ,
     DetailView,
@@ -17,8 +8,6 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-
-# Create your views here.
 from django.contrib.auth.mixins import LoginRequiredMixin , UserPassesTestMixin
 
 
@@ -94,6 +83,8 @@ class TaskDetailsView(UserPassesTestMixin,LoginRequiredMixin,DetailView):
         context = super(TaskDetailsView, self).get_context_data(**kwargs)  # get the default context data
         task = self.get_object()
         context['task_details'] = TaskDetail.objects.filter(task=task)
+        context["open_task_details_num"] = context['task_details'].filter(status=True).count()
+        context["close_task_details_num"] = context['task_details'].count()-context["open_task_details_num"]
         return context
 
     def test_func(self):
@@ -102,23 +93,6 @@ class TaskDetailsView(UserPassesTestMixin,LoginRequiredMixin,DetailView):
         if self.request.user == task.author:
             return True
         return False
-
-
-
-class TaskDetailsCreateView(LoginRequiredMixin, CreateView):
-    model = TaskDetail
-#   The Field Variable Tell CreateView Class witch field that we want to update on the creation
-    template_name = "Tasks/task_details/create.html"
-    fields = ['problem', 'mission', 'responsibility', 'email', 'status']
-
-    def get_context_data(self, **kwargs):
-        context = super(TaskDetailsCreateView, self).get_context_data(**kwargs)  # get the default context data
-        return context
-
-    def form_valid(self, form):
-#       this will set the form instance author to the user that log in , in the request
-        form.instance.task = self.request.GET
-        return super().form_valid(form)
 
 
 def home(request):

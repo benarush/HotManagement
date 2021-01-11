@@ -1,6 +1,7 @@
 {% extends "Tasks/base.html" %}
 {% load static %}
 {% block content %}
+
 <script type="text/javascript" src="{% static 'chartsLibrary\dist\Chart.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'chartsLibrary\dist\Chart.css' %}" >
@@ -39,7 +40,7 @@ var myChart = new Chart(ctx, {
         responsive: true,
         datasets: [{
             label: 'Task Details Status',
-            data: [4,8],
+            data: [{{ open_task_details_num }},{{ close_task_details_num }}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
@@ -62,7 +63,7 @@ var myChart = new Chart(ctx, {
 });
 
 // Bar chart
-new Chart(document.getElementById("myChartbar"), {
+var myChart2 =new Chart(document.getElementById("myChartbar"), {
     type: 'bar',
     data: {
       labels: ["Closed", "Open"],
@@ -70,7 +71,7 @@ new Chart(document.getElementById("myChartbar"), {
         {
           label: "Number of sub tasks",
           backgroundColor: ["#3cba9f","#c45850"],
-          data: [2,4]
+          data: [{{ close_task_details_num }},{{ open_task_details_num }}]
         }
       ]
     },
@@ -83,9 +84,11 @@ new Chart(document.getElementById("myChartbar"), {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero: true
+                    beginAtZero: true,
+                    max: {{ close_task_details_num }}+{{ open_task_details_num }}
                 }
             }]
+
         }
     }
 });
