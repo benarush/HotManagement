@@ -1,5 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render , redirect , get_object_or_404
 from .serializers import *
+from .forms import CreateTaskForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView ,
@@ -21,20 +25,49 @@ class AllTasksViews(LoginRequiredMixin, ListView):
         return Task.objects.filter(author=self.request.user)
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
-    model = Task
-#   The Field Variable Tell CreateView Class witch field that we want to update on the creation
-    template_name = "Tasks/task_create.html"
-    fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
+# class TaskCreateView(LoginRequiredMixin, CreateView):
+#     model = Task
+# #   The Field Variable Tell CreateView Class witch field that we want to update on the creation
+#     template_name = "Tasks/task_create.html"
+#     fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
+#
+#     def get_context_data(self, **kwargs):
+#         context = super(TaskCreateView, self).get_context_data(**kwargs)  # get the default context data
+#         return context
+#
+#     def form_valid(self, form):
+# #       this will set the form instance author to the user that log in , in the request
+#         form.instance.author = self.request.user
+#         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super(TaskCreateView, self).get_context_data(**kwargs)  # get the default context data
-        return context
+@login_required
+def create_task(request):
+    if request.method == 'POST':
+        task_form = CreateTaskForm(request.POST, request.FILES)
+        type = request.FILES['file'].name.split(".")[-1]
+        print("Success Login with robot")
+        if type == "xlsx":
+            print(request.FILES['file'].size)
+            if request.FILES['file'].size < 25000:
+                if task_form.is_valid():
+                    task = task_form.save(commit=False)
+                    task.author = request.user
+                    task.save()
+                else:
+                    messages.warning(request, "User registration failed - Whats Wrong Dude?")
+            else:
+                messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB".format(int(request.FILES['file'].size/1000)))
+        else:
+            messages.error(request ,"Bad File Format")
+    else:
+        # Here the instance= will add the data to the fields...
+        task_form = CreateTaskForm(instance=request.user)
 
-    def form_valid(self, form):
-#       this will set the form instance author to the user that log in , in the request
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    context ={
+        'form': task_form ,
+        'task': Task.objects.filter(author=request.user.id).first()
+    }
+    return render(request , "Tasks/task_create.html", context )
 
 
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
