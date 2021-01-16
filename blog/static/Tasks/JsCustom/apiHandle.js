@@ -182,15 +182,15 @@ $(document).ready(function(){
     function add_update_graphs(isOpen){
         if (isOpen)
         {
-            myChart.data.datasets[0].data[0]= myChart.data.datasets[0].data[0] + 1;
-            myChart2.data.datasets[0].data[1]= myChart2.data.datasets[0].data[1] + 1;
+            myChart.data.datasets[0].data[0]++;
+            myChart2.data.datasets[0].data[1]++;
             myChart.update()
             myChart2.update()
         }
         else
         {
-            myChart.data.datasets[0].data[1] = myChart.data.datasets[0].data[1] + 1;
-            myChart2.data.datasets[0].data[0] = myChart2.data.datasets[0].data[0] + 1;
+            myChart.data.datasets[0].data[1]++;
+            myChart2.data.datasets[0].data[0]++;
             myChart2.update()
             myChart.update()
 
@@ -200,15 +200,15 @@ $(document).ready(function(){
     function delete_update_graphs(isOpen){
         if (isOpen)
         {
-            myChart.data.datasets[0].data[0]= myChart.data.datasets[0].data[0] - 1;
-            myChart2.data.datasets[0].data[1] = myChart2.data.datasets[0].data[1] - 1;
+            myChart.data.datasets[0].data[0]--;
+            myChart2.data.datasets[0].data[1]--;
             myChart.update()
             myChart2.update()
         }
         else
         {
-            myChart.data.datasets[0].data[1] = myChart.data.datasets[0].data[1] - 1;
-            myChart2.data.datasets[0].data[0] = myChart2.data.datasets[0].data[0] - 1;
+            myChart.data.datasets[0].data[1]--;
+            myChart2.data.datasets[0].data[0]--;
             myChart.update()
             myChart2.update()
         }
