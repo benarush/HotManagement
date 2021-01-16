@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.functions import datetime
+import datetime as py_datetime
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ from django.db.models.functions import datetime
 class Task(models.Model):
     problem = models.CharField(max_length=40)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    weeks = models.SmallIntegerField(null=False, blank=False, validators=[MaxValueValidator(100), MinValueValidator(1)])
+    weeks = models.SmallIntegerField(null=False, blank=False, validators=[MaxValueValidator(100), MinValueValidator(0)])
     description = models.CharField(max_length=40)
     date_created = models.DateTimeField(default=timezone.now)
     email_attached_file = models.FileField(upload_to="Emails_Files_Tasks", blank=True)
@@ -24,6 +25,9 @@ class Task(models.Model):
     #   reverse function return a url string with self.pk variable for the urls.py , and the url.py set the <int:pk>
         return reverse('task-details', kwargs={'pk': self.pk})
 
+    @property
+    def end_date(self):
+        return self.start_date + py_datetime.timedelta(days=self.weeks * 7  )
 
 class TaskDetail(models.Model):
     state = ((True, "open"),

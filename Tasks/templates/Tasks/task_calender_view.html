@@ -29,6 +29,7 @@
                 {
                   title: '{{ task.problem}}',
                   start: '{{ task.start_date|date:"Y-m-d" }}',
+                  end:   '{{ task.end_date|date:"Y-m-d" }}'
                 },
             {% endfor %}
           ],
