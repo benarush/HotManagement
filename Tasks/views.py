@@ -44,19 +44,20 @@ class AllTasksViews(LoginRequiredMixin, ListView):
 def create_task(request):
     if request.method == 'POST':
         task_form = CreateTaskForm(request.POST, request.FILES)
-        type = request.FILES['file'].name.split(".")[-1]
-        print("Success Login with robot")
-        if type == "xlsx":
-            print(request.FILES['file'].size)
-            if request.FILES['file'].size < 25000:
+        type = request.FILES['email_attached_file'].name.split(".")[-1]
+        if True:  # type == "xlsx":
+            print(request.FILES['email_attached_file'].size)
+            if request.FILES['email_attached_file'].size < 25000:
                 if task_form.is_valid():
                     task = task_form.save(commit=False)
                     task.author = request.user
                     task.save()
+                    messages.success(request, "Task Created!")
+                    return redirect('task-details', task.id)
                 else:
                     messages.warning(request, "User registration failed - Whats Wrong Dude?")
             else:
-                messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB".format(int(request.FILES['file'].size/1000)))
+                messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB".format(int(request.FILES['email_attached_file'].size/1000)))
         else:
             messages.error(request ,"Bad File Format")
     else:
