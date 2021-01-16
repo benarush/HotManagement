@@ -14,5 +14,7 @@ urlpatterns = [
     path('alltasks/api/sub_task_edit/', sub_task_edit, name="sub-task-edit"),
     path('alltasks/api/sub_task_delete/', sub_task_delete, name="sub-task-delete"),
     path('alltasks/api/sub_task_create/', sub_task_create, name="sub-task-create"),
-    path('alltasks/', AllTasksViews.as_view(), name='all-tasks')
+    path('alltasks/', AllTasksViews.as_view(), name='all-tasks'),
+    path('alltasks/calender/', AllTasksCalenderViews.as_view(), name='task-calender'),
+    
 ]

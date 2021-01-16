@@ -20,8 +20,16 @@ class AllTasksViews(LoginRequiredMixin, ListView):
     context_object_name = "tasks"
 
     def get_queryset(self):
-    #      the get_object_or_404 return 404 if the user dont exist , and if he exist it return his user object
         return Task.objects.filter(author=self.request.user).order_by('-date_created')
+
+
+class AllTasksCalenderViews(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = "Tasks/task_calender_view.html"
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        return Task.objects.filter(author=self.request.user)
 
 
 # class TaskCreateView(LoginRequiredMixin, CreateView):
@@ -133,3 +141,9 @@ def home(request):
     context = {'title': 'About Me!',
                }
     return render(request, 'Tasks/home.html', context)
+
+
+# def calender(request):
+#     context = {'title': 'About Me!',
+#                }
+#     return render(request, 'Tasks/task_calender_view.html', context)
