@@ -57,7 +57,8 @@ def create_task(request):
                 else:
                     messages.warning(request, "User registration failed - Whats Wrong Dude?")
             else:
-                messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB".format(int(request.FILES['email_attached_file'].size/1000)))
+                messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB"
+                               .format(int(request.FILES['email_attached_file'].size/1000)))
         else:
             messages.error(request ,"Bad File Format")
     else:
