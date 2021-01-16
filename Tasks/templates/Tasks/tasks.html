@@ -50,6 +50,9 @@
             </tfoot>
         </table>
 </div>
+            {% for task in tasks %}
+                {{task.problem}}</br>
+            {% endfor %}
 
     <script src="{% static 'blog\JQuery\jquery-3.5.1.slim.min.js' %}"></script>
 
@@ -57,8 +60,12 @@
 
 
 <script>
-    $('.mydatatable').DataTable(
-    {
+    $('.mydatatable').DataTable({
+    "order": [],
+    "columnDefs": [ {
+      "targets"  : 'hover-custom',
+      "orderable": false,
+    }],
     responsive: true,
         footerCallback: function (row, data, start, end, display) {
             var api = this.api(), data;

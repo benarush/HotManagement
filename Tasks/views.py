@@ -21,7 +21,7 @@ class AllTasksViews(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
     #      the get_object_or_404 return 404 if the user dont exist , and if he exist it return his user object
-        return Task.objects.filter(author=self.request.user)
+        return Task.objects.filter(author=self.request.user).order_by('-date_created')
 
 
 # class TaskCreateView(LoginRequiredMixin, CreateView):
