@@ -27,9 +27,10 @@
           events: [
             {% for task in tasks %}
                 {
-                  title: '{{ task.problem}}',
-                  start: '{{ task.start_date|date:"Y-m-d" }}',
-                  end:   '{{ task.end_date|date:"Y-m-d" }}'
+                  title: `{{ task.problem}}`,
+                  start: `{{ task.start_date|date:"Y-m-d" }}`,
+                  end:   `{{ task.end_date|date:"Y-m-d" }}`,
+                  url:   `{% url 'task-details' task.id %}`
                 },
             {% endfor %}
           ],

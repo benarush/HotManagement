@@ -51,32 +51,35 @@ class AllTasksCalenderViews(LoginRequiredMixin, ListView):
 def create_task(request):
     if request.method == 'POST':
         task_form = CreateTaskForm(request.POST, request.FILES)
-        type = request.FILES['email_attached_file'].name.split(".")[-1]
-        if True:  # type == "xlsx":
-            print(request.FILES['email_attached_file'].size)
-            if request.FILES['email_attached_file'].size < 25000:
-                if task_form.is_valid():
-                    task = task_form.save(commit=False)
-                    task.author = request.user
-                    task.save()
-                    messages.success(request, "Task Created!")
-                    return redirect('task-details', task.id)
-                else:
-                    messages.warning(request, "User registration failed - Whats Wrong Dude?")
-            else:
+        # type = request.FILES['email_attached_file'].name.split(".")[-1]
+        file = request.FILES['email_attached_file'] if 'email_attached_file' in request.FILES.keys() else None
+        if file:
+            if file.size > 25000:
                 messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB"
-                               .format(int(request.FILES['email_attached_file'].size/1000)))
+                               .format(int(request.FILES['email_attached_file'].size / 1000)))
+                return render(request, "Tasks/task_create.html", {'form': task_form})
+            elif True: # .name.split(".")[-1] check type of file only mail files allowed
+                # messages.error(request ,"Bad File Format")
+                #return render(request, "Tasks/task_create.html", {'form': task_form})
+                pass
+        if task_form.is_valid():
+            task = task_form.save(commit=False)
+            task.author = request.user
+#           the replace in the problem field is to avoid bugs at calendar app :(
+            task.problem = task.problem.replace("`", "") if "`" in task.problem else task.problem
+            task.save()
+            messages.success(request, "Task Created!")
+            return redirect('task-details', task.id)
         else:
-            messages.error(request ,"Bad File Format")
+            messages.warning(request, "Task Creation failed - Whats Wrong Dude?")
     else:
         # Here the instance= will add the data to the fields...
         task_form = CreateTaskForm(instance=request.user)
 
-    context ={
-        'form': task_form ,
-        'task': Task.objects.filter(author=request.user.id).first()
+    context = {
+        'form': task_form,
     }
-    return render(request , "Tasks/task_create.html", context )
+    return render(request, "Tasks/task_create.html", context)
 
 
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -100,7 +103,7 @@ class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-class TaskDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
     context_object_name = "task"
     success_url = '/tasks/alltasks/'

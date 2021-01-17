@@ -6,7 +6,7 @@ from django.core import validators
 
 
 class CreateTaskForm(forms.ModelForm):
-    email_attached_file = forms.FileField()
+    email_attached_file = forms.FileField(required=False)
 
     class Meta:
         model = Task
