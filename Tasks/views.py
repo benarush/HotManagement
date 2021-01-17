@@ -58,7 +58,7 @@ def create_task(request):
                 messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB"
                                .format(int(request.FILES['email_attached_file'].size / 1000)))
                 return render(request, "Tasks/task_create.html", {'form': task_form})
-            elif True: # .name.split(".")[-1] check type of file only mail files allowed
+            elif True: # file.name.split(".")[-1] check type of file only mail files allowed
                 # messages.error(request ,"Bad File Format")
                 #return render(request, "Tasks/task_create.html", {'form': task_form})
                 pass
