@@ -11,9 +11,6 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin , UserPassesTestMixin
 
-#  LoginRequiredMixin = its like the decoretor @login_required , force login.
-#  UserPassesTestMixin = Check if the user that login have the permission , but its not enough , we need to ovveride
-#  a method there
 
 class PostsListHome(ListView):
     model = Post
@@ -116,4 +113,4 @@ def about(request):
     return render(request, 'blog/about.html', context)
 
 def mainPage(request):
-    return render(request , 'blog/MainPage.html')
+    return render(request, 'blog/MainPage.html')

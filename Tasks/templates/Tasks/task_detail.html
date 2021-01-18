@@ -98,10 +98,22 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
 
               </div>
               <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-                  <h2>Problem - {{object.problem}}</h2><br>
-                  <h2>Description - {{object.description}}</h2><br>
-                  <h2>Start Date - {{object.start_date}}</h2><br>
-                  <h2>Weeks - {{object.weeks}}</h2><br>
+                  <div class="container">
+                  <div class="row">
+                    <div class="col">
+                        <div class="card text-white bg-info mt-4" style="max-width: 100%; max-height: 100%;">
+                      <div class="card-header">Problem - {{object.problem}}</div>
+                      <div class="card-body">
+                        <h5 class="card-title">Start date - {{object.start_date}}</h5>
+                          <p class="card-text">{{object.description}} .<br>Weeks of Work - {{object.weeks}} </p>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="col">
+                        <img style="max-width: 100%; max-height: 100%;" class="card-img-top" src="{% static 'Tasks\table_images\task_icon.jpg' %}" alt="Card image cap">
+                    </div>
+                    </div>
+                  </div>
               </div>
               <div class="tab-pane fade" id="list-details" role="tabpanel" aria-labelledby="list-details-list">
                   <div class="panel-body">
