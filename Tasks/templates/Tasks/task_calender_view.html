@@ -35,7 +35,7 @@
                       url:   `{% url 'task-details' task.id %}`,
                       description: `{{ task.description }}`
                     },
-                {% elif task.days == 1 %}
+                {% elif task.days < 8 %}
                     {
                       title: `{{ task.problem}}`,
                       start: `{{ task.start_date|date:"Y-m-d" }}`,
