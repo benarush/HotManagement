@@ -65,7 +65,7 @@ def create_task(request):
         if task_form.is_valid():
             task = task_form.save(commit=False)
             task.author = request.user
-#           the replace in the problem field is to avoid bugs at calendar app :(
+#           the replace in the problem field is to avoid bugs at calendar app :(, "`" char is not allowed here
             task.problem = task.problem.replace("`", "") if "`" in task.problem else task.problem
             task.save()
             messages.success(request, "Task Created!")
@@ -84,7 +84,7 @@ def create_task(request):
 
 class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Task
-    fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
+    fields = ['problem', 'days', 'description', 'email_attached_file', 'start_date']
 
     def get_context_data(self, **kwargs):
         context = super(TaskUpdateView, self).get_context_data(**kwargs)  # get the default context data

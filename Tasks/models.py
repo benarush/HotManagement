@@ -12,7 +12,7 @@ import datetime as py_datetime
 class Task(models.Model):
     problem = models.CharField(max_length=40)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    weeks = models.SmallIntegerField(null=False, blank=False, validators=[MaxValueValidator(100), MinValueValidator(0)])
+    days = models.SmallIntegerField(null=False, blank=False, validators=[MinValueValidator(0)])
     description = models.CharField(max_length=40)
     date_created = models.DateTimeField(default=timezone.now)
     email_attached_file = models.FileField(upload_to="Emails_Files_Tasks", blank=True)
@@ -27,7 +27,7 @@ class Task(models.Model):
 
     @property
     def end_date(self):
-        return self.start_date + py_datetime.timedelta(days=self.weeks * 7  )
+        return self.start_date + py_datetime.timedelta(days=self.days)
 
 class TaskDetail(models.Model):
     state = ((True, "open"),

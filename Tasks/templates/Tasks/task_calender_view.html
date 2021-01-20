@@ -2,13 +2,12 @@
 {% load static %}
 {% block content %}
 
-<div id="calendar-container">
     <div id="calendar">
-
     </div>
-    
-</div>
-    
+
+
+
+
 <script src="{% static 'Calendar\lib\main.js' %}"></script>
 <link rel="stylesheet" href="{% static 'Calendar\lib\main.css' %}" >
 
@@ -21,17 +20,49 @@
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
           },
+          aspectRatio:  2,
           initialView: 'dayGridMonth',
           selectable: true,
           events: [
             {% for task in tasks %}
-                {
-                  title: `{{ task.problem}}`,
-                  start: `{{ task.start_date|date:"Y-m-d" }}`,
-                  end:   `{{ task.end_date|date:"Y-m-d" }}`,
-                  url:   `{% url 'task-details' task.id %}`,
-                  description: `{{ task.description }}`
-                },
+                {% if task.days == 0 %}
+                    {
+                      title: `{{ task.problem}}`,
+                      start: `{{ task.start_date|date:"Y-m-d" }}`,
+                      end:   `{{ task.end_date|date:"Y-m-d" }}`,
+                      backgroundColor: `#3C1874`,
+                      borderColor:  `#3C1874`,
+                      url:   `{% url 'task-details' task.id %}`,
+                      description: `{{ task.description }}`
+                    },
+                {% elif task.days == 1 %}
+                    {
+                      title: `{{ task.problem}}`,
+                      start: `{{ task.start_date|date:"Y-m-d" }}`,
+                      end:   `{{ task.end_date|date:"Y-m-d" }}`,
+                      url:   `{% url 'task-details' task.id %}`,
+                      description: `{{ task.description }}`
+                    },
+                {% else %}
+                    {
+                      title: `{{ task.problem}}`,
+                      start: `{{ task.start_date|date:"Y-m-d" }}`,
+                      backgroundColor: `#266150`,
+                      textColor:    `white`,
+                      borderColor: `#266150`,
+                      url:   `{% url 'task-details' task.id %}`,
+                      description: `{{ task.description }}`
+                    },
+                    {
+                      title: `End of - {{ task.problem}}`,
+                      start: `{{ task.end_date|date:"Y-m-d" }}`,
+                      backgroundColor: `#4F4846`,
+                      textColor:    `white`,
+                      borderColor: `#4F4846`,
+                      url:   `{% url 'task-details' task.id %}`,
+                      description: `{{ task.description }}`
+                    },
+                {% endif %}
             {% endfor %}
           ],
 
@@ -49,5 +80,6 @@
             calendar.render();
         });
 </script>
+
 
 {% endblock content %}

@@ -21,7 +21,7 @@
                     <th>Problem</th>
                     <th>Description</th>
                     <th>Start Date</th>
-                    <th>Weeks</th>
+                    <th>Days</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -33,7 +33,7 @@
                     <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.problem}}</td>
                     <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.description}}</td>
                     <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.start_date}}</td>
-                    <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.weeks }}</td>
+                    <td class="hover-custom" data-url="{% url 'task-details' task.pk %}" style="cursor: pointer;">{{task.days }}</td>
                     <td><a href="{% url 'edit-task' task.id %}">
                         <img src="{% static 'Tasks\table_images\edit.png' %}"></a>
                     </td>

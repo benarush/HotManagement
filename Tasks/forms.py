@@ -10,4 +10,4 @@ class CreateTaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
+        fields = ['problem', 'days', 'description', 'email_attached_file', 'start_date']
