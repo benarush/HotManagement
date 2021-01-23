@@ -164,7 +164,8 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
         </div>
           {% if object.author == user %}
             <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4" href="{% url 'edit-task' object.pk %}">Edit Task</a>
-            <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4" href="{% url 'edit-task' object.pk %}">Export CSV</a>
+            <a class="btn btn-secondary btn-md mt-1 mb-1 mr-4"
+               href="#CSV" data-toggle="modal" data-target="#ExportToCSV" >Export CSV</a>
             <a class="btn btn-danger btn-md mt-1 mb-1" href="{% url 'delete-task' object.pk %}">Delete Task</a>
           {% endif %}
        </div>
@@ -224,6 +225,44 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
   </div>
 </div>
 </div>
+
+<!--    CSV MODEL    -->
+<div class="modal fade" id="ExportToCSV" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Export Data into CSV</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+             <div class="col-4">
+                 <img src="{% static 'Tasks\table_images\csv.png' %}" width="100%" >
+             </div>
+
+             <div class="col-8 text-center mt-4">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-warning active">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked>Task Properties
+                      </label>
+                      <label class="btn btn-warning">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Tasks Details
+                      </label>
+                    </div>
+             </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 //  Here is properties for apiHandle.js script that handle the table
