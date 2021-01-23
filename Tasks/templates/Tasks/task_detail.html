@@ -238,10 +238,6 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
       </div>
       <div class="modal-body">
           <div class="row">
-             <div class="col-4">
-                 <img src="{% static 'Tasks\table_images\csv.png' %}" width="100%" >
-             </div>
-
              <div class="col-8 text-center mt-4">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                       <label class="btn btn-warning active">
@@ -252,12 +248,15 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
                       </label>
                     </div>
              </div>
+             <div class="col-4">
+                 <img src="{% static 'Tasks\table_images\csv.png' %}" width="100%" >
+             </div>
           </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Download</button>
       </div>
     </div>
   </div>
