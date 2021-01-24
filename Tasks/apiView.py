@@ -41,13 +41,13 @@ def task_info(request,pk):
 
 @login_required
 @api_view(['GET'])
-def sub_tasks_data(request,task_pk):
+def sub_tasks_data(request, task_pk):
     try:
         task = Task.objects.get(id=task_pk)
     except:
-        return Response({"status": "failed" ,"error": "no such of task", "data": None, "subtasks": None})
+        return Response({"status": "failed", "error": "no such of task", "data": None, "subtasks": None})
     if request.user != task.author:
-        return Response({"status": "failed" ,"error": "permission denied", "data": None, "subtasks": None})
+        return Response({"status": "failed", "error": "permission denied", "data": None, "subtasks": None})
     sub_task = SubTaskSerializer(task.taskdetail_set.all(), many=True)
     context = {
         "status": "Success",
@@ -64,6 +64,8 @@ def sub_task_edit(request):
     type = request.POST.get('type', '')
     value = request.POST.get('value', '')
     sub_task = TaskDetail.objects.get(id=id)
+    if sub_task.task.author == request.user:
+        return JsonResponse({"failed": "Permission denied"}, status=403)
     if type == "problem":
         sub_task.problem = value
     if type == "email":
@@ -78,19 +80,24 @@ def sub_task_edit(request):
     sub_task.save()
     return JsonResponse({"success": "Updated"})
 
+
+@login_required
 @csrf_exempt
 def sub_task_delete(request):
     id = request.POST.get('id', '')
     sub_task = TaskDetail.objects.get(id=id)
-    sub_task.delete()
-    return JsonResponse({"success": "sub task delete"})
+    if sub_task.task.author == request.user:
+        sub_task.delete()
+        return JsonResponse({"success": "sub task delete"})
+    return JsonResponse({"failed": "Permission denied"}, status=403)
+
 
 @login_required
 @csrf_exempt
 def sub_task_create(request):
     task = Task.objects.get(id=request.POST.get('task_id', ''))
     if task.author != request.user:
-        return JsonResponse({"message": "Permission Denied!"}, status=500)
+        return JsonResponse({"message": "Permission Denied!"}, status=403)
     email = request.POST.get('email', '')
     problem = request.POST.get('problem', '')
     mission = request.POST.get('mission', '')
