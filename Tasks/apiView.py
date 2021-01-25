@@ -29,11 +29,11 @@ def task_info(request,pk):
     if request.user != task.author:
         return Response({"status": "failed" ,"error": "permission denied", "data": None, "subtasks": None})
     task_serializer = TaskSerializer(task, many=False)
-    sub_task = SubTaskSerializer(task.taskdetail_set.all(),many=True)
+    sub_task = SubTaskSerializer(task.taskdetail_set.all(), many=True)
     context = {
         "status": "Success",
         "error": None,
-        "data": {"task": task_serializer.data},
+        "task": task_serializer.data,
         "subtasks": sub_task.data
     }
     return Response(context)

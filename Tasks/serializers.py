@@ -4,8 +4,9 @@ from .models import TaskDetail, Task
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = '__all__'
-
+        # fields = '__all__'
+        exclude = ('author',)
+        depth = 1
 
 class SubTaskSerializer(serializers.ModelSerializer):
     task_parent = serializers.SerializerMethodField()
