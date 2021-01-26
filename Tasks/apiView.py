@@ -64,7 +64,7 @@ def sub_task_edit(request):
     type = request.POST.get('type', '')
     value = request.POST.get('value', '')
     sub_task = TaskDetail.objects.get(id=id)
-    if sub_task.task.author == request.user:
+    if sub_task.task.author != request.user:
         return JsonResponse({"failed": "Permission denied"}, status=403)
     if type == "problem":
         sub_task.problem = value

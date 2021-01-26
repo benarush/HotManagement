@@ -240,7 +240,7 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
           <div class="row">
              <div class="col-8 text-center mt-4">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-warning active">
+                      <label class="btn btn-warning active" data-value="Task Properties">
                         <input type="radio" name="options" id="option1" autocomplete="off" checked>Task Properties
                       </label>
                       <label class="btn btn-warning">
@@ -256,7 +256,7 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Download</button>
+        <button onclick="makeCSV()" type="button" class="btn btn-primary">Download</button>
       </div>
     </div>
   </div>
@@ -273,5 +273,6 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
  </script>
 
 <script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
+<script type="text/javascript" src="{% static 'Tasks/JsCustom/Handle_CSV_API_Calls.js' %}"></script>
 
 {% endblock content %}
