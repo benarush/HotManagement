@@ -60,10 +60,10 @@ def sub_tasks_data(request, task_pk):
 @login_required
 @csrf_exempt
 def sub_task_edit(request):
-    id = request.POST.get('id', '')
+    task_id = request.POST.get('id', '')
     type = request.POST.get('type', '')
     value = request.POST.get('value', '')
-    sub_task = TaskDetail.objects.get(id=id)
+    sub_task = TaskDetail.objects.get(id=task_id)
     if sub_task.task.author != request.user:
         return JsonResponse({"failed": "Permission denied"}, status=403)
     if type == "problem":
