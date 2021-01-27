@@ -2,6 +2,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+
 from .models import Task, TaskDetail
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -113,3 +117,12 @@ def sub_task_create(request):
         print({"message": e})
         return JsonResponse(e.detail,status=500)
     return JsonResponse({"success": "sub task created !!"})
+
+
+class TaskAllAPI(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        all_tasks_from_user = Task.objects.filter(author=request.user)
+        task_serializer = TaskSerializer(all_tasks_from_user, many=True)
+        return Response(task_serializer.data)
