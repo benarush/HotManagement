@@ -66,15 +66,15 @@ def sub_task_edit(request):
     sub_task = TaskDetail.objects.get(id=task_id)
     if sub_task.task.author != request.user:
         return JsonResponse({"failed": "Permission denied"}, status=403)
-    if type == "problem":
+    elif type == "problem":
         sub_task.problem = value
-    if type == "email":
+    elif type == "email":
         sub_task.email = value
-    if type == "mission":
+    elif type == "mission":
         sub_task.mission = value
-    if type == "responsibility":
+    elif type == "responsibility":
         sub_task.responsibility = value
-    if type == "status":
+    elif type == "status":
         sub_task.status = True if value == "open" else False
 
     sub_task.save()

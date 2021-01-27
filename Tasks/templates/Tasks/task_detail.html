@@ -102,10 +102,10 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
                   <div class="row">
                     <div class="col">
                         <div class="card text-white bg-info mt-4" style="max-width: 100%; max-height: 100%;">
-                      <div class="card-header">Problem - {{object.problem}}</div>
+                            <div class="card-header">Problem - <span id="task_Problem">{{object.problem}}</span></div>
                       <div class="card-body">
-                        <h5 class="card-title">Start date - {{object.start_date}}</h5>
-                          <p class="card-text">{{object.description}} .<br>Days of Work - {{object.days}} </p>
+                          <h5 class="card-title">Start date -  <span id="task_start_date">{{object.start_date}}</span></h5>
+                          <p class="card-text"><span id="task_description">{{object.description}}</span>.<br>Days of Work - <span id="task_days">{{object.days}}</span> </p>
                       </div>
                     </div>
                     </div>
