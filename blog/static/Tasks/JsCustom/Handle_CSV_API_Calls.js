@@ -1,44 +1,3 @@
-function makeCSV(){
-
-    alert("hiiii");
-}
-
-
-function downloadCSV(csv, filename) {
-    var csvFile;
-    var downloadLink;
-    // CSV file can change it in the parameter on the function , See how i add it to the export buttom
-    csvFile = new Blob([csv], {type: "text/csv;utf-8"});
-    // Download link
-    downloadLink = document.createElement("a");
-    // File name
-    downloadLink.download = filename;
-    // Create a link to the file
-    downloadLink.href = window.URL.createObjectURL(csvFile);
-    // Hide download link
-    downloadLink.style.display = "none";
-    // Add the link to DOM
-    document.body.appendChild(downloadLink);
-    // Click download link
-    downloadLink.click();
-}
-
-function exportTableToCSV(filename) {
-    var csv = [];
-    var rows = document.querySelectorAll("table tr");
-
-    for (var i = 0; i < rows.length; i++) {
-        var row = [], cols = rows[i].querySelectorAll("td, th");
-
-        for (var j = 0; j < cols.length; j++)
-            row.push(String.fromCharCode(0xFEFF) + cols[j].innerText);
-
-        csv.push(row.join(","));
-    }
-
-    // Download CSV file
-    downloadCSV(csv.join("\n"), filename);
-}
 
 class CSV_Creator {
 
@@ -49,11 +8,11 @@ class CSV_Creator {
         this.task_start_date = document.getElementById("task_start_date").innerText;
     }
 
-    simpleTaskCSV(){
+    simpleTaskCSV() {
         let file_name = "SimpleTask.csv";
         let csv = this.addTaskDetailstoCSV();
         csv = this.exportTableToCSV(csv);
-        this.downloadCSV(csv,file_name);
+        this.downloadCSV(csv, file_name);
     }
 
     addTaskDetailstoCSV() {
@@ -79,12 +38,11 @@ class CSV_Creator {
         for (let i = 0; i < rows.length; i++) {
             let row = [], cols = rows[i].querySelectorAll("td, th");
 
-            for (let j = 0; j < cols.length -1; j++)
+            for (let j = 0; j < cols.length - 1; j++)
                 row.push(String.fromCharCode(0xFEFF) + cols[j].innerText);
 
             csv.push(row.join(","));
         }
-        // Download CSV file
         return csv.join("\n");
     }
 
@@ -107,5 +65,13 @@ class CSV_Creator {
         // Click download link
         downloadLink.click();
     }
-    
+
+}
+
+function makeCSV() {
+    csv = new CSV_Creator();
+    const task_details_input = document.getElementById("Task_With_Details").className;
+    if (task_details_input.includes("active")) {
+        csv.simpleTaskCSV();
+    }
 }
