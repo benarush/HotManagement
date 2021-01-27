@@ -2,10 +2,10 @@
 class CSV_Creator {
 
     constructor(name, year) {
-        this.task_problem = document.getElementById("task_Problem").innerText;
-        this.task_days = document.getElementById("task_days").innerText;
-        this.task_description = document.getElementById("task_description").innerText;
-        this.task_start_date = document.getElementById("task_start_date").innerText;
+        this.task_problem = document.getElementById("task_Problem").innerText.replace(",", "");
+        this.task_days = document.getElementById("task_days").innerText.replace(",", "");
+        this.task_description = document.getElementById("task_description").innerText.replace(",", "");
+        this.task_start_date = document.getElementById("task_start_date").innerText.replace(",", "");
     }
 
     allTasks_CSV() {
