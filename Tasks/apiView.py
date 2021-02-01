@@ -126,3 +126,12 @@ class TaskAllAPI(APIView):
         all_tasks_from_user = Task.objects.filter(author=request.user)
         task_serializer = TaskSerializer(all_tasks_from_user, many=True)
         return Response(task_serializer.data)
+
+
+class TaskAllWithDetailsAPI(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        all_tasks_from_user = Task.objects.filter(author=request.user)
+        task_serializer = TaskWithDetailsSerializer(all_tasks_from_user, many=True)
+        return Response(task_serializer.data)

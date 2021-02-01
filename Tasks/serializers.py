@@ -37,3 +37,7 @@ class SubTaskSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             responsibility=validated_data['responsibility'],
         )
+
+class TaskWithDetailsSerializer(TaskSerializer):
+    sub_tasks = SubTaskSerializer(source='taskdetail_set',read_only=True, many=True)
+
