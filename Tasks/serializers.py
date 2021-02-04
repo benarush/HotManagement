@@ -23,8 +23,8 @@ class SubTaskSerializer(serializers.ModelSerializer):
     def get_task_parent(self, obj):
         return obj.task.problem
 
-    def get_current_status(self,obj):
-        return "Open" if obj.status == True else "Close"
+    def get_current_status(self, obj):
+        return "Open" if obj.status else "Close"
 
     def create(self, validated_data):
         task = validated_data['task']
@@ -39,5 +39,5 @@ class SubTaskSerializer(serializers.ModelSerializer):
         )
 
 class TaskWithDetailsSerializer(TaskSerializer):
-    sub_tasks = SubTaskSerializer(source='taskdetail_set',read_only=True, many=True)
+    sub_tasks = SubTaskSerializer(source='taskdetail_set', read_only=True, many=True)
 

@@ -31,7 +31,7 @@ def task_info(request,pk):
         context = {"status": "failed" ,"error": "no such of task", "data": None, "subtasks": None}
         return Response(context)
     if request.user != task.author:
-        return Response({"status": "failed" ,"error": "permission denied", "data": None, "subtasks": None})
+        return Response({"status": "failed", "error": "permission denied", "data": None, "subtasks": None})
     task_serializer = TaskSerializer(task, many=False)
     sub_task = SubTaskSerializer(task.taskdetail_set.all(), many=True)
     context = {
