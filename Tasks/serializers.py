@@ -2,14 +2,14 @@ from rest_framework import serializers
 from .models import TaskDetail, Task
 
 class TaskSerializer(serializers.ModelSerializer):
-    author = serializers.SerializerMethodField()
+    # author = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
         fields = '__all__'
 
-    def get_author(self, obj):
-        return obj.author.username
+    # def get_author(self, obj):
+    #     return obj.author.username
 
 
 class SubTaskSerializer(serializers.ModelSerializer):

@@ -126,13 +126,12 @@ class TaskDetailsView(UserPassesTestMixin, LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailsView, self).get_context_data(**kwargs)  # get the default context data
-        task = self.get_object()
-        context['task_details'] = TaskDetail.objects.filter(task=task)
+        context['task_details'] = TaskDetail.objects.filter(task=context['task'])
         context["open_task_details_num"] = context['task_details'].filter(status=True).count()
         context["close_task_details_num"] = context['task_details'].count()-context["open_task_details_num"]
         return context
 
-    def test_func(self):
+    def test_func(self, **kwargs):
 #   The get_object() Will Get the object that we want to update.
         task = self.get_object()
         if self.request.user == task.author:
@@ -144,10 +143,4 @@ def home(request):
     context = {'title': 'About Me!',
                }
 
-    # return render(request, 'Tasks/home.html', context)
-
-
-# def calender(request):
-#     context = {'title': 'About Me!',
-#                }
-#     return render(request, 'Tasks/task_calender_view.html', context)
+    return render(request, 'Tasks/home.html', context)
