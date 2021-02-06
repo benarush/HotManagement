@@ -143,7 +143,8 @@ class TaskDetailsView(UserPassesTestMixin, LoginRequiredMixin, DetailView):
 def home(request):
     context = {'title': 'About Me!',
                }
-    return render(request, 'Tasks/home.html', context)
+
+    # return render(request, 'Tasks/home.html', context)
 
 
 # def calender(request):
