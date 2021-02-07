@@ -4,11 +4,56 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Delete Post</legend>
-                <h2>{{user.username}}, To Delete {{task.problem}}? Are You Sure??</h2>
+                <legend class="border-bottom mb-4">Delete Task</legend>
+                <h2>Hi {{user.username}},<br>Are you sure you want to delete this task??</h2>
             </fieldset>
+            <div class="accordion mb-2" id="accordionExample">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Problem
+                    </button>
+                  </h2>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    {{task.problem}}
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Description
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body">
+                    {{task.description}}
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Days Works
+                    </button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body">
+                    {{task.days}}
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="form-group">
-                <button class="btn btn-outline-danger" type="submit">Erase {{post.title}}!</button>
+                <button class="btn btn-outline-danger" type="submit">Erase!</button>
                 <a class="btn btn-outline-secondary" href="{% url 'task-details' task.pk %}">Cancel Now!</a>
             </div>
         </form>

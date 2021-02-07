@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render , redirect , get_object_or_404
 from .serializers import *
 from .forms import CreateTaskForm
@@ -121,26 +122,21 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return False
 
 
-class TaskDetailsView(UserPassesTestMixin, LoginRequiredMixin, DetailView):
+class TaskDetailsView(LoginRequiredMixin, DetailView):
     model = Task
 
     def get_context_data(self, **kwargs):
         context = super(TaskDetailsView, self).get_context_data(**kwargs)  # get the default context data
+        if context['task'].author != self.request.user:
+            raise Http404("Task does not exist or permission denied")
         context['task_details'] = TaskDetail.objects.filter(task=context['task'])
         context["open_task_details_num"] = context['task_details'].filter(status=True).count()
         context["close_task_details_num"] = context['task_details'].count()-context["open_task_details_num"]
         return context
 
-    def test_func(self, **kwargs):
-#   The get_object() Will Get the object that we want to update.
-        task = self.get_object()
-        if self.request.user == task.author:
-            return True
-        return False
-
 
 def home(request):
     context = {'title': 'About Me!',
                }
-
     return render(request, 'Tasks/home.html', context)
+
