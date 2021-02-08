@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from .ImageManipulation import ImageManipulation as MyCustomImageManipulation
-from PIL import Image
+
 class Profile(models.Model):
     user = models.OneToOneField(User , on_delete=models.CASCADE)
     image = models.ImageField(default="profile_pics/default/Male_default.png" , upload_to='profile_pics')
@@ -11,6 +11,7 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+        print("Testt")
         MyCustomImageManipulation(self.image.path)
 
 

@@ -1,5 +1,6 @@
 from PIL import Image
 
+print("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
 class ImageManipulation:
     __ORIENT = {
         # exif_val: (rotate degrees cw, mirror 0=no 1=horiz 2=vert); see http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html
@@ -25,6 +26,7 @@ class ImageManipulation:
             orient = self.img._getexif()[274]
         except (AttributeError, KeyError, TypeError, ValueError):
             orient = 1  # default (normal)
+        print(f"Orient - {orient}")
         if orient in self.__ORIENT:
             (rotate, mirror) = self.__ORIENT[orient]
             if rotate:

@@ -33,21 +33,6 @@ class AllTasksCalenderViews(LoginRequiredMixin, ListView):
         return Task.objects.filter(author=self.request.user)
 
 
-# class TaskCreateView(LoginRequiredMixin, CreateView):
-#     model = Task
-# #   The Field Variable Tell CreateView Class witch field that we want to update on the creation
-#     template_name = "Tasks/task_create.html"
-#     fields = ['problem', 'weeks', 'description', 'email_attached_file', 'start_date']
-#
-#     def get_context_data(self, **kwargs):
-#         context = super(TaskCreateView, self).get_context_data(**kwargs)  # get the default context data
-#         return context
-#
-#     def form_valid(self, form):
-# #       this will set the form instance author to the user that log in , in the request
-#         form.instance.author = self.request.user
-#         return super().form_valid(form)
-
 @login_required
 def create_task(request):
     if request.method == 'POST':
@@ -59,7 +44,7 @@ def create_task(request):
                 messages.error(request, "File Size is Big, current Size:{}KB , maxSize 32KB"
                                .format(int(request.FILES['email_attached_file'].size / 1000)))
                 return render(request, "Tasks/task_create.html", {'form': task_form})
-            elif True: # file.name.split(".")[-1] check type of file only mail files allowed
+            elif True: # file.name.split(".")[-1] check type of file, only email files allowed
                 # messages.error(request ,"Bad File Format")
                 #return render(request, "Tasks/task_create.html", {'form': task_form})
                 pass
@@ -74,7 +59,6 @@ def create_task(request):
         else:
             messages.warning(request, "Task Creation failed - Whats Wrong Dude?")
     else:
-        # Here the instance= will add the data to the fields...
         task_form = CreateTaskForm(instance=request.user)
 
     context = {
@@ -92,12 +76,10 @@ class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return context
 
     def form_valid(self, form):
-        #       this will set the form instance author to the user that log in , in the request
         form.instance.author = self.request.user
         return super().form_valid(form)
 
     def test_func(self):
-#   The get_object() Will Get the object that we want to update.
         task = self.get_object()
         if self.request.user == task.author:
             return True
@@ -113,9 +95,7 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         context = super(TaskDeleteView, self).get_context_data(**kwargs)  # get the default context data
         return context
 
-#   this method will check if the user author and the user that log in are same.
     def test_func(self):
-#   The get_object() Will Get the object that we want to update.
         post = self.get_object()
         if self.request.user == post.author:
             return True
