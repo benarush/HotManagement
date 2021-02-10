@@ -79,7 +79,7 @@ def sub_task_edit(request):
     elif type == "responsibility":
         sub_task.responsibility = value
     elif type == "status":
-        sub_task.status = True if value == "open" else False
+        sub_task.status = 0 if value == "open" else 1 if value == "closed" else 2
 
     sub_task.save()
     return JsonResponse({"success": "Updated"})

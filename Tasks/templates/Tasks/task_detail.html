@@ -135,18 +135,22 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
                     </thead>
                     <tbody>
                        {% for td in task_details %}
-                      {% if td.status == True %}
-                      <tr  id="{{ td.id }}" class="alert-danger">
-                       {% else %}
-                      <tr id="{{ td.id }}" class="alert-success">
-                      {% endif %}
+                          {% if td.status == 1 %}
+                                <tr  id="{{ td.id }}" class="alert-danger">
+                              {% elif td.status == 0  %}
+                                <tr id="{{ td.id }}" class="alert-success">
+                              {% else %}
+                                <tr id="{{ td.id }}" class="alert-warning">
+                          {% endif %}
                         <td class="editable" data-id="{{ td.id }}" data-type="problem">{{td.problem}}</td>
                         <td class="editable" data-id="{{ td.id }}" data-type="mission">{{td.mission}}</td>
                         <td class="editable" data-id="{{ td.id }}" data-type="responsibility">{{td.responsibility}}</td>
-                       {% if td.status == True %}
+                       {% if td.status == 1 %}
                             <td class="editable" data-id="{{ td.id }}" data-type="status">Open</td>
-                       {% else %}
+                       {% elif td.status == 0 %}
                           <td class="editable" data-id="{{ td.id }}" data-type="status">Closed</td>
+                       {% else %}
+                          <td class="editable" data-id="{{ td.id }}" data-type="status">Stuck</td>
                        {% endif %}
                         <td class="editable" data-id="{{ td.id }}" data-type="email">{{td.email}}</td>
                         <td data-id="{{ td.id }}">
