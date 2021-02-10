@@ -79,7 +79,7 @@ def sub_task_edit(request):
     elif type == "responsibility":
         sub_task.responsibility = value
     elif type == "status":
-        sub_task.status = 0 if value == "open" else 1 if value == "closed" else 2
+        sub_task.status = 1 if value == "open" else 0 if value == "closed" else 2
 
     sub_task.save()
     return JsonResponse({"success": "Updated"})
@@ -106,16 +106,14 @@ def sub_task_create(request):
     problem = request.POST.get('problem', '')
     mission = request.POST.get('mission', '')
     responsibility = request.POST.get('responsibility', '')
-    status = True if request.POST.get('status', '') == "open" else False
-    print(f"task:{task}\nemail:{email}\nproblem:{problem}\nmission:{mission}\nstatus:{status}")
+    status = request.POST.get('status', '')
     try:
         sub_task_serializer = SubTaskSerializer(data=request.POST)
         if sub_task_serializer.is_valid(raise_exception=True):
             t = sub_task_serializer.save(task=task, status=status)
             return JsonResponse(sub_task_serializer.data)
     except Exception as e:
-        print({"message": e})
-        return JsonResponse(e.detail,status=500)
+        return JsonResponse(e.detail, status=500)
     return JsonResponse({"success": "sub task created !!"})
 
 

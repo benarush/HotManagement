@@ -36,19 +36,20 @@ var ctx = document.getElementById('myChartPie');
 var myChart = new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['Open', 'Closed'],
+        labels: ['Open', 'Closed', 'Stuck'],
         responsive: true,
         datasets: [{
             label: 'Task Details Status',
-            data: [{{ open_task_details_num }},{{ close_task_details_num }}],
+            data: [{{ open_task_details_num }},{{ close_task_details_num }},{{ stuck_task_details_num }}],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(75, 192, 192, 0.2)',
-
+                '#f0ad4e',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(75, 192, 192, 1)',
+                '#f0ae1e',
             ],
             borderWidth: 1
         }]
@@ -66,12 +67,12 @@ var myChart = new Chart(ctx, {
 var myChart2 =new Chart(document.getElementById("myChartbar"), {
     type: 'bar',
     data: {
-      labels: ["Closed", "Open"],
+      labels: ["Closed", "Open", "Stuck"],
       datasets: [
         {
           label: "Number of sub tasks",
-          backgroundColor: ["#3cba9f","#c45850"],
-          data: [{{ close_task_details_num }},{{ open_task_details_num }}]
+          backgroundColor: ["#3cba9f","#c45850","#f0ad4e"],
+          data: [{{ close_task_details_num }},{{ open_task_details_num }},{{ stuck_task_details_num }}]
         }
       ]
     },
@@ -175,7 +176,7 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
        </div>
     </article>
 
-    <!-- Modal -->
+    <!-- Sub Task Creation Modal -->
 <div id="formModel" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -215,8 +216,9 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
     <div class="form-group col-md-6">
       <label for="status">Status</label>
     <select name="cars" id="status" class="form-control">
-      <option value="open">Open</option>
-      <option value="closed">Closed</option>
+      <option value=1>Open</option>
+      <option value=0>Closed</option>
+      <option value=2>Stuck</option>
     </select>
     </div>
    </div>

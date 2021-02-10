@@ -110,8 +110,9 @@ class TaskDetailsView(LoginRequiredMixin, DetailView):
         if context['task'].author != self.request.user:
             raise Http404("Task does not exist or permission denied")
         context['task_details'] = TaskDetail.objects.filter(task=context['task'])
-        context["open_task_details_num"] = context['task_details'].filter(status=True).count()
-        context["close_task_details_num"] = context['task_details'].count()-context["open_task_details_num"]
+        context["open_task_details_num"] = context['task_details'].filter(status=1).count()
+        context["close_task_details_num"] = context['task_details'].filter(status=0).count()
+        context["stuck_task_details_num"] = context['task_details'].filter(status=2).count()
         return context
 
 

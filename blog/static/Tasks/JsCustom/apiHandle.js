@@ -19,6 +19,7 @@ $(document).ready(function(){
            input_type="email";
         }
         console.log("type:" + data_type);
+        lastEditValue = value;
         if(data_type!="status")
         {
             var input="<input type='"+input_type+"' class='input-data' value='"+value+"' class='form-control'>";
@@ -30,8 +31,8 @@ $(document).ready(function(){
             <option value="closed">Closed</option>
             <option value="stuck">Stuck</option>
             </select>`;
+            lastEditValue = lastEditValue.toLowerCase();
         }
-        lastEditValue = value ;
         $(this).html(input);
         $(this).removeClass("editable")
     });
@@ -47,7 +48,7 @@ $(document).ready(function(){
         var type=td.data("type");
         if (lastEditValue != value)
         {
-            sendEditToServer(td.data("id"),value,type);
+            sendEditToServer(td.data("id"), value, type, lastEditValue);
         }
     });
 
@@ -69,7 +70,7 @@ $(document).ready(function(){
         }
     });
 
-    function sendEditToServer(id,value,type){
+    function sendEditToServer(id, value, type, lastValue){
         console.log(id);
         console.log(value);
         console.log(type);
@@ -77,14 +78,15 @@ $(document).ready(function(){
         $.ajax({
             url:editUrl,
             type:"POST",
-            data:{id:id,type:type,value:value},
+            data: { id: id, type: type, value: value},
         })
             .done(function (response) {
                 if (type === "status") {
                     let className;
-                    let oldTypeData = handleTypeData(lastEditValue);
+                    let oldTypeData = handleTypeData(lastValue);
                     let currentTypeData = handleTypeData(value);
                     delete_update_graphs(oldTypeData.typeStatus);
+                    console.log("OLLLDD, ", oldTypeData)
                     add_update_graphs(currentTypeData.typeStatus);
                     document.getElementById(id).className = currentTypeData.className;
             }
@@ -112,8 +114,9 @@ $(document).ready(function(){
         }
         document.getElementById(""+td.data("id")).remove();
 
-        function sendDeleteToServer(id){
-            let isOpen = document.getElementById(id).className.includes("danger");
+        function sendDeleteToServer(id) {
+            let string_type_status = document.getElementById(id).children[3].innerText.toLowerCase();
+            let currentType = handleTypeData(string_type_status);
             $.ajax({
                 url:deleteUrl,
                 type:"POST",
@@ -121,7 +124,7 @@ $(document).ready(function(){
             })
             .done(function(response){
                 console.log(response);
-                delete_update_graphs(isOpen);
+                delete_update_graphs(currentType.typeStatus);
             })
             .fail(function(){
                alert("failed to load the data at the server , Something wend Wrong... talk with tomer");
@@ -161,9 +164,9 @@ $(document).ready(function(){
         .done(function(response){
             console.log(response);
             $('#formModel').modal('hide');
-            td_danger_success = response.current_status == "Close" ? "alert-success": "alert-danger";
+            td_danger_success_warning = handleTypeData(response.current_status.toLowerCase());
             $(".table").find('tbody').append(`
-            <tr id="` +response.id+ `" class="` + td_danger_success + `">
+            <tr id="` + response.id + `" class="` + td_danger_success_warning.className + `">
             <td class="editable" data-id="`+response.id+`" data-type="problem">` + response.problem +`</td>
             <td class="editable" data-id="`+response.id+`" data-type="mission">` + response.mission +`</td>
             <td class="editable" data-id="`+response.id+`" data-type="responsibility">` + response.responsibility +`</td>
@@ -194,6 +197,8 @@ $(document).ready(function(){
                 myChart2.data.datasets[0].data[0]++;
                 break;
             case 2:
+                myChart.data.datasets[0].data[2]++;
+                myChart2.data.datasets[0].data[2]++;
                 break;
         }
         myChart.update();
@@ -201,6 +206,7 @@ $(document).ready(function(){
     }
 
     function delete_update_graphs(type) {
+        console.log("Graph Delete type = ", type);
         switch (type) {
             case 1:
                 myChart.data.datasets[0].data[0]--;
@@ -211,6 +217,8 @@ $(document).ready(function(){
                 myChart2.data.datasets[0].data[0]--;
                 break;
             case 2:
+                myChart.data.datasets[0].data[2]--;
+                myChart2.data.datasets[0].data[2]--;
                 break;
         }
         myChart.update();
