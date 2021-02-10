@@ -7,7 +7,7 @@ class Profile(models.Model):
     image = models.ImageField(default="profile_pics/default/Male_default.png" , upload_to='profile_pics')
     role = (('male' , 'Male'),
             ('female' , 'Female'))
-    gender = models.CharField(max_length=10 , choices=role , default='male')
+    gender = models.CharField(max_length=10, choices=role , default='male')
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

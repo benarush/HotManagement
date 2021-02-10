@@ -28,6 +28,7 @@ $(document).ready(function(){
             var input= `<select id="cars" name="cars" class='input-data' data-type="status">
             <option value="open">Open</option>
             <option value="closed">Closed</option>
+            <option value="stuck">Stuck</option>
             </select>`;
         }
         lastEditValue = value ;
@@ -77,12 +78,28 @@ $(document).ready(function(){
             type:"POST",
             data:{id:id,type:type,value:value},
         })
-        .done(function(response){
-            if (type === "status" ){
-                let isOpen = value ==="closed";
+            .done(function (response) {
+                let className;
+            if (type === "status") {
+                switch (value) {
+                    case "stuck":
+                        isOpen = 2;
+                        className = "alert-warning"
+                        break;
+                    case "open":
+                        isOpen = 1;
+                        className = "alert-danger"
+                        break;
+                    case "closed":
+                        isOpen = 0;
+                        className = "alert-success"
+                        break;
+                    default:
+                        console.log("dont know what to do with this value ", value);
+                }
                 delete_update_graphs(isOpen);
                 add_update_graphs(!isOpen);
-                document.getElementById(id).className = value === "closed" ? "alert-success" : "alert-danger";
+                document.getElementById(id).className = className;
             }
 
             console.log(response);
@@ -213,4 +230,6 @@ $(document).ready(function(){
             myChart2.update()
         }
     }
+
+    function handleTypeData
 });

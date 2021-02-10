@@ -30,13 +30,14 @@ class Task(models.Model):
         return self.start_date + py_datetime.timedelta(days=self.days)
 
 class TaskDetail(models.Model):
-    state = ((True, "open"),
-             (False, "closed"))
+    state = ((1, "open"),
+             (0, "closed"),
+             (2, "stuck"))
     problem = models.CharField(max_length=60)
     mission = models.CharField(max_length=60)
     responsibility = models.CharField(max_length=60, blank=True)
     email = models.EmailField(blank=True)
-    status = models.BooleanField(default=True, blank=False, choices=state)
+    status = models.SmallIntegerField(default=1, blank=False, choices=state)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):

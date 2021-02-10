@@ -1,6 +1,5 @@
 from PIL import Image
 
-print("HIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
 class ImageManipulation:
     __ORIENT = {
         # exif_val: (rotate degrees cw, mirror 0=no 1=horiz 2=vert); see http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html
