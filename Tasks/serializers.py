@@ -24,7 +24,7 @@ class SubTaskSerializer(serializers.ModelSerializer):
         return obj.task.problem
 
     def get_current_status(self, obj):
-        return "Open" if obj.status==1 else "Close" if obj.status== 0 else "Stuck"
+        return "Open" if obj.status==1 else "Closed" if obj.status== 0 else "Stuck"
 
     def create(self, validated_data):
         task = validated_data['task']

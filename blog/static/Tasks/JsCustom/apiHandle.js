@@ -140,7 +140,7 @@ $(document).ready(function(){
         let email = document.getElementById("inputEmail4").value;
         let problem = document.getElementById("Problem").value;
         let mission = document.getElementById("Mission").value;
-        let status = document.getElementById("status").value;
+        let status = parseInt(document.getElementById("status").value);
         let responsibility = document.getElementById("responsibility").value;
         let dict_data ={
             task_id : task_id,
@@ -174,7 +174,7 @@ $(document).ready(function(){
             <td class="editable" data-id="`+response.id+`" data-type="email">` + response.email +`</td>
             <td data-id="`+response.id+`"><a data-id="`+response.id+ `" class="delete-btn ml-1" href="#">
             <img data-id="` +response.id+`" src="`+ deleteIMG_url + `"></a></td></tr>`);
-            add_update_graphs(response.current_status === "Open" ? true: false)
+            add_update_graphs(td_danger_success_warning.typeStatus)
             return response;
         })
         .fail(function(response){

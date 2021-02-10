@@ -106,7 +106,7 @@ def sub_task_create(request):
     problem = request.POST.get('problem', '')
     mission = request.POST.get('mission', '')
     responsibility = request.POST.get('responsibility', '')
-    status = request.POST.get('status', '')
+    status = int(request.POST.get('status', ''))
     try:
         sub_task_serializer = SubTaskSerializer(data=request.POST)
         if sub_task_serializer.is_valid(raise_exception=True):
