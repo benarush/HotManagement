@@ -73,33 +73,20 @@ $(document).ready(function(){
         console.log(id);
         console.log(value);
         console.log(type);
+        console.log(lastEditValue);
         $.ajax({
             url:editUrl,
             type:"POST",
             data:{id:id,type:type,value:value},
         })
             .done(function (response) {
-                let className;
-            if (type === "status") {
-                switch (value) {
-                    case "stuck":
-                        isOpen = 2;
-                        className = "alert-warning"
-                        break;
-                    case "open":
-                        isOpen = 1;
-                        className = "alert-danger"
-                        break;
-                    case "closed":
-                        isOpen = 0;
-                        className = "alert-success"
-                        break;
-                    default:
-                        console.log("dont know what to do with this value ", value);
-                }
-                delete_update_graphs(isOpen);
-                add_update_graphs(!isOpen);
-                document.getElementById(id).className = className;
+                if (type === "status") {
+                    let className;
+                    let oldTypeData = handleTypeData(lastEditValue);
+                    let currentTypeData = handleTypeData(value);
+                    delete_update_graphs(oldTypeData.typeStatus);
+                    add_update_graphs(currentTypeData.typeStatus);
+                    document.getElementById(id).className = currentTypeData.className;
             }
 
             console.log(response);
@@ -196,40 +183,58 @@ $(document).ready(function(){
         });
     }
 
-    function add_update_graphs(isOpen){
-        if (isOpen)
-        {
-            myChart.data.datasets[0].data[0]++;
-            myChart2.data.datasets[0].data[1]++;
-            myChart.update()
-            myChart2.update()
+    function add_update_graphs(type){
+        switch (type) {
+            case 1:
+                myChart.data.datasets[0].data[0]++;
+                myChart2.data.datasets[0].data[1]++;
+                break;
+            case 0:
+                myChart.data.datasets[0].data[1]++;
+                myChart2.data.datasets[0].data[0]++;
+                break;
+            case 2:
+                break;
         }
-        else
-        {
-            myChart.data.datasets[0].data[1]++;
-            myChart2.data.datasets[0].data[0]++;
-            myChart2.update()
-            myChart.update()
-
-        }
+        myChart.update();
+        myChart2.update();
     }
 
-    function delete_update_graphs(isOpen){
-        if (isOpen)
-        {
-            myChart.data.datasets[0].data[0]--;
-            myChart2.data.datasets[0].data[1]--;
-            myChart.update()
-            myChart2.update()
+    function delete_update_graphs(type) {
+        switch (type) {
+            case 1:
+                myChart.data.datasets[0].data[0]--;
+                myChart2.data.datasets[0].data[1]--;
+                break;
+            case 0:
+                myChart.data.datasets[0].data[1]--;
+                myChart2.data.datasets[0].data[0]--;
+                break;
+            case 2:
+                break;
         }
-        else
-        {
-            myChart.data.datasets[0].data[1]--;
-            myChart2.data.datasets[0].data[0]--;
-            myChart.update()
-            myChart2.update()
-        }
+        myChart.update();
+        myChart2.update();
     }
 
-    function handleTypeData
+    function handleTypeData(value) {
+        let data = {};
+        switch (value) {
+            case "stuck":
+                data.typeStatus = 2;
+                data.className = "alert-warning";
+                break;
+            case "open":
+                data.typeStatus = 1;
+                data.className = "alert-danger";
+                break;
+            case "closed":
+                data.typeStatus = 0;
+                data.className = "alert-success";
+                break;
+            default:
+                console.log("dont know what to do with this value ", value);
+        }
+        return data;
+    }
 });
