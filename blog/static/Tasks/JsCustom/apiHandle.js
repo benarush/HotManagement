@@ -238,7 +238,7 @@ $(document).ready(function(){
                 break;
             case "closed":
                 data.typeStatus = 0;
-                data.className = "alert-success";
+                data.className = "alert-primary";
                 break;
             default:
                 console.log("dont know what to do with this value ", value);

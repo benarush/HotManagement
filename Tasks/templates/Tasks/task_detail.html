@@ -42,8 +42,8 @@ var myChart = new Chart(ctx, {
             label: 'Task Details Status',
             data: [{{ open_task_details_num }},{{ close_task_details_num }},{{ stuck_task_details_num }}],
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
+                '#ec4259',
+                '#3333ff',
                 '#f0ad4e',
             ],
             borderColor: [
@@ -71,7 +71,7 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
       datasets: [
         {
           label: "Number of sub tasks",
-          backgroundColor: ["#3cba9f","#c45850","#f0ad4e"],
+          backgroundColor: ["#3333ff","#c45850","#f0ad4e"],
           data: [{{ close_task_details_num }},{{ open_task_details_num }},{{ stuck_task_details_num }}]
         }
       ]
@@ -139,7 +139,7 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
                           {% if td.status == 1 %}
                                 <tr  id="{{ td.id }}" class="alert-danger">
                               {% elif td.status == 0  %}
-                                <tr id="{{ td.id }}" class="alert-success">
+                                <tr id="{{ td.id }}" class="alert-primary">
                               {% else %}
                                 <tr id="{{ td.id }}" class="alert-warning">
                           {% endif %}
