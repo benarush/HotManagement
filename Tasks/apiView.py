@@ -131,5 +131,5 @@ class TaskAllWithDetailsAPI(APIView):
 
     def get(self, request, format=None):
         all_tasks_from_user = Task.objects.filter(author=request.user)
-        task_serializer = TaskWithDetailsSerializer(all_tasks_from_user, many=True)
+        task_serializer = TaskWithDetailsSerializer.setup_eager_loading(all_tasks_from_user)
         return Response(task_serializer.data)

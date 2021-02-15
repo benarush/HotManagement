@@ -40,5 +40,11 @@ class SubTaskSerializer(serializers.ModelSerializer):
 
 
 class TaskWithDetailsSerializer(TaskSerializer):
-    sub_tasks = SubTaskSerializer(source='taskdetail_set', read_only=True, many=True)
+    sub_tasks = SubTaskSerializer(source='taskdetail_set', many=True)
+
+    @classmethod
+    def setup_eager_loading(cls, queryset):
+        """ Perform necessary eager loading of data. """
+        queryset = queryset.prefetch_related('taskdetail_set')
+        return cls(queryset, many=True)
 
