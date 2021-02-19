@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-
+from .Repots_XLSX import *
 from .models import Task, TaskDetail
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -133,3 +133,10 @@ class TaskAllWithDetailsAPI(APIView):
         all_tasks_from_user = Task.objects.filter(author=request.user)
         task_serializer = TaskWithDetailsSerializer.setup_eager_loading(all_tasks_from_user)
         return Response(task_serializer.data)
+
+
+@login_required
+@csrf_exempt
+def report_xlsx(request):
+    r = RepotExcelConfig()
+    return Response({"rrr":"rrrrr"})
