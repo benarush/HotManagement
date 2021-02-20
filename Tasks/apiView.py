@@ -146,5 +146,4 @@ def report_xlsx(request):
             excel_file.write_task(task)
 
 
-
-    return JsonResponse({"rrr":"rrrrr"})
+    return Response("fds")

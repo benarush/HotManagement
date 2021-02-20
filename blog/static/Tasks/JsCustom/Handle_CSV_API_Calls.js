@@ -2,10 +2,14 @@
 class CSV_Creator {
 
     constructor(name, year) {
-        this.task_problem = document.getElementById("task_Problem").innerText.replace(",", "");
-        this.task_days = document.getElementById("task_days").innerText.replace(",", "");
-        this.task_description = document.getElementById("task_description").innerText.replace(",", "");
-        this.task_start_date = document.getElementById("task_start_date").innerText.replace(",", "");
+        try {
+            this.task_problem = document.getElementById("task_Problem").innerText.replace(",", "");
+            this.task_days = document.getElementById("task_days").innerText.replace(",", "");
+            this.task_description = document.getElementById("task_description").innerText.replace(",", "");
+            this.task_start_date = document.getElementById("task_start_date").innerText.replace(",", "");
+        } catch {
+            console.log("not in task detals page, can only run all task methods");
+        }
     }
 
     allTasks_CSV() {
@@ -122,13 +126,3 @@ class CSV_Creator {
 
 }
 
-function makeCSV() {
-    csv = new CSV_Creator();
-    const task_details_input = document.getElementById("Task_With_Details").className;
-    if (task_details_input.includes("active")) {
-        csv.taskWithDetailsCSV();
-    } else {
-        csv.allTasks_CSV();
-    }
-    
-}

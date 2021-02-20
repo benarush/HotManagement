@@ -277,6 +277,17 @@ var myChart2 =new Chart(document.getElementById("myChartbar"), {
      var editUrl = "{% url 'sub-task-edit' %}";
      var deleteUrl = "{% url 'sub-task-delete' %}";
      var CreateUrl = "{% url 'sub-task-create' %}";
+
+    function makeCSV() {
+    csv = new CSV_Creator();
+    const task_details_input = document.getElementById("Task_With_Details").className;
+    if (task_details_input.includes("active")) {
+        csv.taskWithDetailsCSV();
+    } else {
+        csv.allTasks_CSV();
+    }
+
+    }
  </script>
 
 <script type="text/javascript" src="{% static 'Tasks/JsCustom/apiHandle.js' %}"></script>
