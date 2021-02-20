@@ -23,6 +23,7 @@ class Excel_Repot(RepotExcelConfig):
         self.workbook = xw.Workbook(self.full_path)
         self.worksheet1 = self.workbook.add_worksheet('Reports')
         self.headers_font_bold = self.workbook.add_format({'bold': 1})
+        self.headers_font_bold.set_bg_color('#CAE3FB')
         self.row = 0
 
     def __enter__(self):
@@ -42,6 +43,14 @@ class Excel_Repot(RepotExcelConfig):
         self.worksheet1.write(self.row, 4, 'Email attached file', self.headers_font_bold)
         self.move_next_row()
 
+    def write_task_details_headers(self):
+        self.worksheet1.write(self.row, 5, 'Problem', self.headers_font_bold)
+        self.worksheet1.write(self.row, 6, 'Mission', self.headers_font_bold)
+        self.worksheet1.write(self.row, 7, 'Responsibility', self.headers_font_bold)
+        self.worksheet1.write(self.row, 8, 'email', self.headers_font_bold)
+        self.worksheet1.write(self.row, 9, 'status', self.headers_font_bold)
+        self.move_next_row()
+
     def write_task(self, task):
         self.worksheet1.write(self.row, 0, task.problem)
         self.worksheet1.write(self.row, 1, task.description)
@@ -50,7 +59,22 @@ class Excel_Repot(RepotExcelConfig):
         self.worksheet1.write(self.row, 4, str(task.email_attached_file) if task.email_attached_file
                               else "No File Attached")
         self.move_next_row()
+        if task.taskdetail_set.count() > 0:
+            self.write_task_details(task.taskdetail_set.all())
         # if len(task.)
+
+    def write_task_details(self, task_details):
+        self.write_task_details_headers()
+        for td in task_details:
+            self.worksheet1.write(self.row, 5, td.problem)
+            self.worksheet1.write(self.row, 6, td.mission)
+            self.worksheet1.write(self.row, 7, str(td.responsibility))
+            self.worksheet1.write(self.row, 8, str(td.email))
+            self.worksheet1.write(self.row, 9, "Open" if td.status == 1
+                                  else "Stuck" if td.status == 2
+                                  else "Closed"
+                                  )
+            self.move_next_row()
 
     def move_next_row(self):
         self.row += 1
