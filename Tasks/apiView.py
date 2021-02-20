@@ -138,5 +138,7 @@ class TaskAllWithDetailsAPI(APIView):
 @login_required
 @csrf_exempt
 def report_xlsx(request):
-    r = RepotExcelConfig()
-    return Response({"rrr":"rrrrr"})
+    with Excel_Repot(request=request) as excel_file:
+        print(excel_file.full_path)
+
+    return JsonResponse({"rrr":"rrrrr"})
