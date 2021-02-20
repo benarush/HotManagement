@@ -22,16 +22,39 @@ class Excel_Repot(RepotExcelConfig):
         super().__init__(request)
         self.workbook = xw.Workbook(self.full_path)
         self.worksheet1 = self.workbook.add_worksheet('Reports')
+        self.headers_font_bold = self.workbook.add_format({'bold': 1})
+        self.row = 0
 
-    def __enter__(self, request):
-        self.__init__(request)
+    def __enter__(self):
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print("File closed!!")
         self.workbook.close()
 
     def close_file(self):
         self.workbook.close()
+
+    def write_task_headers(self):
+        self.worksheet1.write(self.row, 0, 'Problem', self.headers_font_bold)
+        self.worksheet1.write(self.row, 1, 'Description', self.headers_font_bold)
+        self.worksheet1.write(self.row, 2, 'Date_Created', self.headers_font_bold)
+        self.worksheet1.write(self.row, 3, 'Start Date', self.headers_font_bold)
+        self.worksheet1.write(self.row, 4, 'Email attached file', self.headers_font_bold)
+        self.move_next_row()
+
+    def write_task(self, task):
+        self.worksheet1.write(self.row, 0, task.problem)
+        self.worksheet1.write(self.row, 1, task.description)
+        self.worksheet1.write(self.row, 2, str(task.date_created))
+        self.worksheet1.write(self.row, 3, str(task.start_date))
+        self.worksheet1.write(self.row, 4, str(task.email_attached_file) if task.email_attached_file
+                              else "No File Attached")
+        self.move_next_row()
+        # if len(task.)
+
+    def move_next_row(self):
+        self.row += 1
+
 #
 # workbook = xlsxwriter.Workbook('outline.xlsx')
 #
