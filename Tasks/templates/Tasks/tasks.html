@@ -106,7 +106,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Export Data into CSV</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create Report</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -124,7 +124,7 @@
                     </div>
              </div>
              <div class="col-4">
-                 <img src="{% static 'Tasks\table_images\csv.png' %}" width="100%" >
+                 <img src="{% static 'Tasks\table_images\csv.png' %}" width="100%" id="Report_IMG">
              </div>
           </div>
 
@@ -138,8 +138,19 @@
 </div>
 <script>
     var all_tasks_api = "{% url 'all-tasks-api'%}";
-    var excel_image_path = "{% static 'Tasks\table_images\csv.png' %}";
+    var excel_image_path = "{% static 'Tasks\table_images\Excel.png' %}";
     var csv_image_path = "{% static 'Tasks\table_images\csv.png' %}";
+
+    document.getElementById("option1").addEventListener("click", handleModel_View);
+    document.getElementById("option2").addEventListener("click", handleModel_View);
+    function handleModel_View() {
+        if (this.id == "option1") {
+            document.getElementById("Report_IMG").src = csv_image_path;
+        } else {
+            document.getElementById("Report_IMG").src = excel_image_path;
+        }
+
+    }
 
     function makeCSV() {
     csv = new CSV_Creator();

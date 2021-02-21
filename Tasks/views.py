@@ -119,8 +119,6 @@ class TaskDetailsView(LoginRequiredMixin, DetailView):
 def home(request):
     context = {'title': 'About Me!',
                }
-    task = Task.objects.all().prefetch_related('taskdetail_set')
-    for t in task:
-        print(t.taskdetail_set.all())
+
     return render(request, 'Tasks/home.html', context)
 
