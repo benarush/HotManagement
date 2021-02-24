@@ -157,10 +157,10 @@
     const task_details_input = document.getElementById("Task_With_Details").className;
     if (task_details_input.includes("active")) {
         console.log("full report handle");
+        console.log(this);
     } else {
         csv.allTasks_CSV();
     }
-
 }
 </script>
 {% endblock content %}
