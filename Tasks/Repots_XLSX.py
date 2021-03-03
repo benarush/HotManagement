@@ -4,7 +4,7 @@ from django.conf import settings
 import os
 
 
-class RepotExcelConfig:
+class ReportExcelConfig:
 
     def __init__(self, request):
         self.request = request
@@ -16,7 +16,7 @@ class RepotExcelConfig:
         return os.path.join(self.report_folder_path, f"{self.file_name}.xlsx")
 
 
-class Excel_Repot(RepotExcelConfig):
+class ExcelReport(ReportExcelConfig):
 
     def __init__(self, request):
         super().__init__(request)
@@ -30,7 +30,7 @@ class Excel_Repot(RepotExcelConfig):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.workbook.close()
+        self.close_file()
 
     def close_file(self):
         self.workbook.close()

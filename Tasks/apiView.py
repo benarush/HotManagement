@@ -140,7 +140,7 @@ class TaskAllWithDetailsAPI(APIView):
 def report_xlsx(request):
     user_tasks = Task.objects.filter(author=request.user).prefetch_related('taskdetail_set')
 
-    with Excel_Repot(request) as excel_file:
+    with ExcelReport(request) as excel_file:
         excel_file.write_task_headers()
         for task in user_tasks:
             excel_file.write_task(task)
