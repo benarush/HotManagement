@@ -139,7 +139,6 @@ class TaskAllWithDetailsAPI(APIView):
 @csrf_exempt
 def report_xlsx(request):
     user_tasks = Task.objects.filter(author=request.user).prefetch_related('taskdetail_set')
-
     with ExcelReport(request) as excel_file:
         excel_file.write_task_headers()
         for task in user_tasks:

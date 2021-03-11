@@ -24,6 +24,8 @@ class ExcelReport(ReportExcelConfig):
         self.worksheet1 = self.workbook.add_worksheet('Reports')
         self.headers_font_bold = self.workbook.add_format({'bold': 1})
         self.headers_font_bold.set_bg_color('#CAE3FB')
+        self.headers_task_details_font = self.workbook.add_format({'bold': 1})
+        self.headers_task_details_font.set_bg_color('#ff8080')
         self.row = 0
 
     def __enter__(self):
@@ -44,11 +46,11 @@ class ExcelReport(ReportExcelConfig):
         self.move_next_row()
 
     def write_task_details_headers(self):
-        self.worksheet1.write(self.row, 5, 'Problem', self.headers_font_bold)
-        self.worksheet1.write(self.row, 6, 'Mission', self.headers_font_bold)
-        self.worksheet1.write(self.row, 7, 'Responsibility', self.headers_font_bold)
-        self.worksheet1.write(self.row, 8, 'email', self.headers_font_bold)
-        self.worksheet1.write(self.row, 9, 'status', self.headers_font_bold)
+        self.worksheet1.write(self.row, 5, 'Problem', self.headers_task_details_font)
+        self.worksheet1.write(self.row, 6, 'Mission', self.headers_task_details_font)
+        self.worksheet1.write(self.row, 7, 'Responsibility', self.headers_task_details_font)
+        self.worksheet1.write(self.row, 8, 'email', self.headers_task_details_font)
+        self.worksheet1.write(self.row, 9, 'status', self.headers_task_details_font)
         self.move_next_row()
 
     def write_task(self, task):
@@ -79,23 +81,4 @@ class ExcelReport(ReportExcelConfig):
     def move_next_row(self):
         self.row += 1
 
-#
-# workbook = xlsxwriter.Workbook('outline.xlsx')
-#
-#
-# tasks =
-#
-# # Add a general format
-# bold = workbook.add_format({'bold': 1})
-#
-# worksheet1.write(0, 0, 'name', bold)
-# worksheet1.write(0, 1, 'age', bold)
-#
-#
-# for row, task in zip(range(1, 10), tasks):
-#     for column,  task_item in zip(range(2), task.values()):
-#         worksheet1.write(row, column, task_item)
-#
-#
-#
-# workbook.close()
+
