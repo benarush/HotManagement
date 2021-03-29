@@ -2,6 +2,7 @@ import os
 import re
 import xlsxwriter as xw
 from django.conf import settings
+from Tasks.models import FullReport
 
 
 class ExcelReportConfig:
@@ -36,6 +37,7 @@ class ExcelReport(ExcelReportConfig):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close_file()
+        FullReport.objects.create(owner=self.request.user, file_path=self.response_path_to_view)
 
     def close_file(self):
         self.workbook.close()
@@ -92,14 +94,14 @@ class ExcelReport(ExcelReportConfig):
         task_details = task.taskdetail_set.all()
         self.write_analytic_headers()
         all_task_details_count = task_details.count()
-        open = len([td for td in task_details if td.status == 1])
-        closed = len([td for td in task_details if td.status == 0])
-        stuck = all_task_details_count - open - closed
+        open_tasks = len([td for td in task_details if td.status == 1])
+        closed_tasks = len([td for td in task_details if td.status == 0])
+        stuck = all_task_details_count - open_tasks - closed_tasks
 
         self.analytics_worksheet.write(self.analytic_row, 0, task.problem, self.headers_font_bold)
-        self.analytics_worksheet.write(self.analytic_row, 1, open)
+        self.analytics_worksheet.write(self.analytic_row, 1, open_tasks)
         self.analytics_worksheet.write(self.analytic_row, 2, stuck)
-        self.analytics_worksheet.write(self.analytic_row, 3, closed)
+        self.analytics_worksheet.write(self.analytic_row, 3, closed_tasks)
         self.create_chart(task)
         self.analytic_move_next_task()
 
@@ -110,7 +112,7 @@ class ExcelReport(ExcelReportConfig):
         self.analytic_row += 1
 
     def analytic_move_next_task(self):
-        self.analytic_row += 15
+        self.analytic_row += 14
 
     def create_chart(self, task):
         chart = self.workbook.add_chart({'type': 'pie'})

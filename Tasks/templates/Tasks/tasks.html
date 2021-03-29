@@ -131,14 +131,15 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button onclick="makeCSV()" type="button" class="btn btn-primary">Download</button>
+        <button onclick="makeCSV()" id="Create_Download_BTN" type="button" class="btn btn-primary">Download</button>
       </div>
     </div>
   </div>
 </div>
 <script>
     var all_tasks_api = "{% url 'all-tasks-api'%}";
-    var excel_image_path = "{% static 'Tasks\table_images\Excel.png' %}";
+    var full_report_api = "{% url 'report-xlsx' %}";
+    var excel_image_path = "{% static 'Tasks\table_images\excel.png' %}";
     var csv_image_path = "{% static 'Tasks\table_images\csv.png' %}";
 
     document.getElementById("option1").addEventListener("click", handleModel_View);
@@ -152,15 +153,30 @@
 
     }
 
+
+
     function makeCSV() {
-    csv = new CSV_Creator();
-    const task_details_input = document.getElementById("Task_With_Details").className;
-    if (task_details_input.includes("active")) {
-        console.log("full report handle");
-        console.log(this);
-    } else {
-        csv.allTasks_CSV();
+        csv = new CSV_Creator();
+        const task_details_input = document.getElementById("Task_With_Details").className;
+        if (task_details_input.includes("active")) {
+            console.log("full report handle");
+            fullReportAPI()
+        } else {
+            csv.allTasks_CSV();
+        }
     }
-}
+    function fullReportAPI() {
+        $.ajax({
+            url:full_report_api,
+            type:"GET",
+        })
+        .done(function(response){
+            console.log(response);
+        })
+        .fail(function(){
+           alert("failed to load the data at the server , Something wend Wrong... talk with tomer");
+        });
+    }
+    
 </script>
 {% endblock content %}

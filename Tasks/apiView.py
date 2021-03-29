@@ -130,7 +130,7 @@ class TaskAllWithDetailsAPI(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
-        all_tasks_from_user = Task.objects.filter(author=request.user)
+        all_tasks_from_user = Task.objects.filter(author=request.user).first()
         task_serializer = TaskWithDetailsSerializer.setup_eager_loading(all_tasks_from_user)
         return Response(task_serializer.data)
 
@@ -139,6 +139,9 @@ class TaskAllWithDetailsAPI(APIView):
 @csrf_exempt
 @api_view(['GET'])
 def report_xlsx(request):
+    user_report = FullReport.objects.filter(owner=request.user).first()
+    if user_report:
+        return Response({"path": f"{user_report.file_path}"})
     user_tasks = Task.objects.filter(author=request.user).prefetch_related('taskdetail_set')
     with ExcelReport(request) as excel_file:
         excel_file.write_task_headers()
