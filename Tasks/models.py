@@ -6,8 +6,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models.functions import datetime
 import datetime as py_datetime
 
-# Create your models here.
-
 
 class Task(models.Model):
     problem = models.CharField(max_length=40)
@@ -44,4 +42,10 @@ class TaskDetail(models.Model):
         return f"<TaskDetails problem = {self.problem}>"
 
 
+class FullReport(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
+    file_path = models.CharField(max_length=110)
 
+    def __str__(self):
+        return f"file:{self.file_path}"

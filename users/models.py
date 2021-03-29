@@ -16,3 +16,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return "{} Profile".format(self.user.username)
+
+
+
+class Report(models.Model):
+    user = models.OneToOneField(User , on_delete=models.CASCADE)
+    file = models.FileField(upload_to="Reports")

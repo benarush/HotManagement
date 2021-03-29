@@ -137,12 +137,12 @@ class TaskAllWithDetailsAPI(APIView):
 
 @login_required
 @csrf_exempt
+@api_view(['GET'])
 def report_xlsx(request):
     user_tasks = Task.objects.filter(author=request.user).prefetch_related('taskdetail_set')
     with ExcelReport(request) as excel_file:
         excel_file.write_task_headers()
         for task in user_tasks:
             excel_file.write_task(task)
-
-
-    return Response("fds")
+    context = {"path": excel_file.response_path_to_view}
+    return Response(context)
