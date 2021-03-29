@@ -17,4 +17,4 @@ class MyTasksDetailsAdmin(admin.ModelAdmin):
 @admin.register(FullReport)
 class FullReportAdmin(admin.ModelAdmin):
     list_display = [f.name for f in FullReport._meta.get_fields() if f.one_to_many != True]
-    search_fields = ('owner__username','file_path')
+    search_fields = ('owner__username', 'file_path')
