@@ -131,9 +131,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button onclick="makeCSV()" id="Create_Download_BTN" type="button" class="btn btn-primary">Download
+        <a href="#FullReport" id="downloadFullReport">
+          <button onclick="makeCSV()" id="Create_Download_BTN" type="button" class="btn btn-primary">Download
             <div class="spinner-grow text-light" role="status" style="visibility: hidden; width:1.1em; height:1.1em"></div>
           </button>
+        </a>
       </div>
     </div>
   </div>
@@ -191,7 +193,10 @@
             type:"GET",
         })
         .done(function(response){
-            console.log(response);
+            let base_url = typeof location.origin === 'undefined' ? location.protocol + '//' + location.host : location.origin;
+            let report_link = document.getElementById("downloadFullReport");
+            report_link.setAttribute('download', 'TasksFullReport.xlsx');
+            report_link.setAttribute('href', base_url + "/" + response.path);
         })
         .fail(function(){
            alert("failed to load the data at the server , Something wend Wrong... talk with tomer");

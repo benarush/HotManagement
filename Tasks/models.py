@@ -27,6 +27,7 @@ class Task(models.Model):
     def end_date(self):
         return self.start_date + py_datetime.timedelta(days=self.days)
 
+
 class TaskDetail(models.Model):
     state = ((1, "open"),
              (0, "closed"),
