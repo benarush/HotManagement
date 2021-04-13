@@ -1,12 +1,11 @@
-pip install Django
-pip install django-reset-migrations
-pip install djangorestframework
-pip install django-crispy-forms
-pip install cryptography
-pip install django-cryptographic-fields
-pip install pymysql
-pip install pillow
-pip install django-fake-model
-
-
-https://www.coffe-soft.com/messages/api/
+Django
+django-reset-migrations
+djangorestframework
+django-crispy-forms
+cryptography
+django-cryptographic-fields
+pymysql
+pillow
+django-fake-model
+XlsxWriter
+django-debug-toolbar
